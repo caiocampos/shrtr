@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "12"
+dist: bionic
+sudo: required
+
+branches:
+  only:
+  - master
+
+script:
+  - npm build
