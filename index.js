@@ -16,8 +16,10 @@ const app = (() => {
 	return exp;
 })();
 
+const publicRoot = '/home/runner/public';
+
 app.get('/', (req, res) => {
-	res.sendFile('public/index.html');
+	res.sendFile(`${publicRoot}/index.html`);
 });
 app.get('/@', (req, res) => {
 	service.findAll(data => {
@@ -40,11 +42,12 @@ app.get('/:shrt', function (req, res) {
 		if (!data.length) {
 			throw 'Nothing returned';
 		}
-		const link = data[0].link;
+		let link = data[0].link;
+		link = (/https?:\/\//).test(link) ? link : `http://${link}`;
 		res.redirect(link);
 	}, err => {
 		console.log(err);
-		res.status(400).json(err);
+		res.sendFile(`${publicRoot}/404.html`);
 	});
 });
 
