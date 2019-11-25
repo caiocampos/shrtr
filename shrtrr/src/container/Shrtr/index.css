@@ -1,0 +1,41 @@
+#response {
+	min-height: 40px;
+}
+
+div.title {
+	width: 40%;
+	border-radius: 5px;
+	background-color: rgba(250, 250, 250, 0.5);
+	margin-left: auto;
+	margin-right: auto;
+	padding: 3px;
+}
+
+div.form {
+	background-color: rgba(250, 250, 250, 0.3);
+	padding: 10px;
+}
+
+div.form input[type="text"] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+div.form input[type="submit"] {
+	width: 20%;
+	min-width: 100px;
+	background-color: #4caf50;
+	color: white;
+	margin: 8px 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.form input[type="submit"]:hover {
+	background-color: #45a049;
+}

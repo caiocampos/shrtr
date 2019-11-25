@@ -2,11 +2,9 @@
   "name": "shrtr",
   "version": "0.0.1",
   "description": "Encurtador de links",
+  "main": "index.js",
   "scripts": {
-    "install": "yarn --cwd ./shrtr install && yarn --cwd ./shrtrr install",
-    "start": "yarn --cwd ./shrtr start & yarn --cwd ./shrtrr start",
-    "build": "yarn --cwd ./shrtrr build",
-    "test": "yarn --cwd ./shrtrr test"
+    "start": "node ./index.js"
   },
   "author": "Caio Campos",
   "license": "MIT",

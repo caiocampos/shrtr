@@ -8,5 +8,11 @@ branches:
   only:
   - master
 
+before_install:
+  - npm install -g yarn
+
+install:
+  - yarn install
+
 script:
-  - npm build
+  - yarn build

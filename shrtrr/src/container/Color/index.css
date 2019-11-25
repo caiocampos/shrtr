@@ -1,0 +1,9 @@
+input[type="button"].color {
+	width: 150px;
+	border: 1px solid rgba(220, 220, 220, 0.5);
+	background-color: rebeccapurple;
+	color: white;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+}

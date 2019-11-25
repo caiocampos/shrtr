@@ -1,0 +1,19 @@
+:root {
+	--main-bg-color: darkblue;
+}
+
+body {
+	text-align: center;
+	background-color: var(--main-bg-color);
+}
+
+div.main {
+	background-color: rgba(220, 220, 220, 0.7);
+	max-width: 80vw;
+	padding: 10px;
+	padding-bottom: 40px;
+	margin-top: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 60px;
+}
