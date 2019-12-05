@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+:root {
+	--main-bg-color: darkblue;
+}
+
+body {
+	text-align: center;
+	background-color: var(--main-bg-color);
+	font-family: 'Lato', sans-serif;
+}

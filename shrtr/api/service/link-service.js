@@ -10,21 +10,21 @@ class LinkService {
 		this.repository.findAll(success, error);
 	}
 	insert(obj, success, error) {
-		if (!obj) {
+		if (!obj || !Object.entries(obj).length) {
 			error(this.msg.emptyRequest);
 			return;
 		}
 		this.repository.insert(obj, success, error);
 	}
 	remove(obj, success, error) {
-		if (!obj) {
+		if (!obj || !Object.entries(obj).length) {
 			error(this.msg.emptyRequest);
 			return;
 		}
 		this.repository.remove(obj, success, error);
 	}
 	update(obj, success, error) {
-		if (!obj) {
+		if (!obj || !Object.entries(obj).length) {
 			error(this.msg.emptyRequest);
 			return;
 		}
@@ -35,25 +35,32 @@ class LinkService {
 			error(this.msg.emptyRequest);
 			return;
 		}
-		const regenerate = (ctx) => {
-			obj.shrt = (Math.random() * 9323572139681727).toString(36).replace('.', 'A');
-			ctx.generate(obj, success, error, true);
-		};
+		const regenerate = (() => {
+			obj.shrt = (Math.random() * 9323572139681727)
+				.toString(36)
+				.replace('.', 'A');
+			this.generate(obj, success, error, true);
+		}).bind(this);
 		if (obj.shrt) {
-			const regenContext = this;
-			this.find({ shrt: obj.shrt }, data => {
-				if (data.length) {
-					if (recursion) {
-						regenerate(regenContext);
+			this.find(
+				{ shrt: obj.shrt },
+				data => {
+					if (data.length) {
+						if (recursion) {
+							regenerate();
+							return;
+						}
+						error({
+							message: 'The alias already exists, try another'
+						});
 						return;
 					}
-					error({ message: 'The alias already exists, try another' });
-					return;
-				}
-				regenContext.insert(obj, success, error);
-			}, err => console.log(err));
+					this.insert(obj, success, error);
+				},
+				err => console.log(err)
+			);
 		} else {
-			regenerate(this);
+			regenerate();
 		}
 	}
 }

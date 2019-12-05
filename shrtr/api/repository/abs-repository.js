@@ -1,4 +1,4 @@
-const {ObjectID, Db} = require('tingodb')();
+const { ObjectID, Db } = require('tingodb')();
 
 class AbsRepository {
 	constructor() {
@@ -26,15 +26,13 @@ class AbsRepository {
 	}
 	remove(collection, obj, success, error) {
 		const col = this.db.collection(collection);
-		col.remove(
-			{ _id: new ObjectID(obj._id) },
-			(err, result) => {
-				if (!err) {
-					success(result);
-				} else {
-					error(err);
-				}
-			});
+		col.remove({ _id: new ObjectID(obj._id) }, (err, result) => {
+			if (!err) {
+				success(result);
+			} else {
+				error(err);
+			}
+		});
 	}
 	update(collection, obj, success, error) {
 		const col = this.db.collection(collection);
@@ -47,7 +45,8 @@ class AbsRepository {
 				} else {
 					error(err);
 				}
-			});
+			}
+		);
 	}
 }
 module.exports = AbsRepository;

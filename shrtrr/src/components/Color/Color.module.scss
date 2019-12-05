@@ -1,0 +1,13 @@
+.Color {
+	width: 150px;
+	background-color: rebeccapurple;
+	color: white;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	margin: 1px;
+
+	&:hover {
+		background-color: indigo;
+	}
+}

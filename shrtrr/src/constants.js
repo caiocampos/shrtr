@@ -3,7 +3,7 @@ class Constants {
 		return 'https://shrtr.caiocampos.repl.co';
 	}
 	static get self() {
-		return 'https://shrtrr.caiocampos.repl.co';
+		return 'https://caiocampos.github.io/shrtr';
 	}
 }
 

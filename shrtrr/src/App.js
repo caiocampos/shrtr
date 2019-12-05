@@ -1,4 +1,6 @@
+import React from 'react';
+import Router from './components/Router';
 
-import App from './container/App';
+const App = props => <Router />;
 
 export default App;

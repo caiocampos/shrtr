@@ -10,9 +10,23 @@ branches:
 
 before_install:
   - npm install -g yarn
+  - npm install -g codecov
 
 install:
   - yarn install
 
 script:
   - yarn build
+  - yarn coverage
+  - cd shrtrr/build
+  - cp index.html 404.html
+  - cd ../..
+  - codecov
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github-token: $GITHUB_TOKEN
+  local_dir: shrtrr/build
+  on:
+    branch: master

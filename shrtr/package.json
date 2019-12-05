@@ -1,17 +1,31 @@
 {
-  "name": "shrtr",
-  "version": "0.0.1",
-  "description": "Encurtador de links",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./index.js"
-  },
-  "author": "Caio Campos",
-  "license": "MIT",
-  "dependencies": {
-    "express": "~4.17.1",
-    "body-parser": "~1.19.0",
-    "tingodb": "~0.6.1",
-    "cors": "2.8.5"
-  }
+	"name": "shrtr",
+	"version": "0.0.1",
+	"description": "Encurtador de links",
+	"main": "index.js",
+	"scripts": {
+		"start": "node ./index.js",
+		"test": "jest",
+		"coverage": "jest --coverage"
+	},
+	"author": "Caio Campos",
+	"license": "MIT",
+	"dependencies": {
+		"body-parser": "~1.19.0",
+		"cors": "~2.8.5",
+		"express": "~4.17.1",
+		"tingodb": "~0.6.1"
+	},
+	"devDependencies": {
+		"jest": "^24.9.0",
+		"supertest": "~4.0.2"
+	},
+	"jest": {
+		"moduleFileExtensions": [
+			"js"
+		],
+		"testMatch": [
+			"**/*.spec.js"
+		]
+	}
 }

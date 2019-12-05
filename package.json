@@ -5,15 +5,12 @@
   "scripts": {
     "install": "yarn --cwd ./shrtr install && yarn --cwd ./shrtrr install",
     "start": "yarn --cwd ./shrtr start & yarn --cwd ./shrtrr start",
+    "up": "yarn --cwd ./shrtr upgrade --latest && yarn --cwd ./shrtrr upgrade --latest",
     "build": "yarn --cwd ./shrtrr build",
-    "test": "yarn --cwd ./shrtrr test"
+    "test": "yarn --cwd ./shrtr test & yarn --cwd ./shrtrr test",
+    "coverage": "yarn --cwd ./shrtr coverage & yarn --cwd ./shrtrr coverage",
+    "twatch": "yarn --cwd ./shrtrr twatch"
   },
   "author": "Caio Campos",
-  "license": "MIT",
-  "dependencies": {
-    "express": "~4.17.1",
-    "body-parser": "~1.19.0",
-    "tingodb": "~0.6.1",
-    "cors": "2.8.5"
-  }
+  "license": "MIT"
 }

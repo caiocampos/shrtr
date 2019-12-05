@@ -1,0 +1,26 @@
+.Form {
+	background-color: rgba(250, 250, 250, 0.3);
+	padding: 10px;
+
+	input {
+		margin: 8px 0px;
+
+		&[type='submit'] {
+			width: 20%;
+			min-width: 100px;
+			background-color: #4caf50;
+			color: white;
+			margin-left: auto;
+			margin-right: auto;
+			border: none;
+
+			&:hover {
+				background-color: #45a049;
+			}
+
+			&[disabled] {
+				cursor: not-allowed;
+			}
+		}
+	}
+}
