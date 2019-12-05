@@ -7,9 +7,9 @@ import E404 from '../../containers/E404';
 const Router = props => (
 	<BrowserRouter>
 		<Switch>
-			<Route path=`${process.env.PUBLIC_URL}/` exact={true} component={Main} />
-			<Route path=`${process.env.PUBLIC_URL}/err/error` component={E404} />
-			<Route path=`${process.env.PUBLIC_URL}/:id` component={Redirect} />
+			<Route path={`${process.env.PUBLIC_URL}/`} exact={true} component={Main} />
+			<Route path={`${process.env.PUBLIC_URL}/err/error`} component={E404} />
+			<Route path={`${process.env.PUBLIC_URL}/:id`} component={Redirect} />
 		</Switch>
 	</BrowserRouter>
 );
