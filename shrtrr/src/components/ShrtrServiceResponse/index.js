@@ -13,7 +13,7 @@ const ShrtrServiceResponse = props => {
 	if (props.route) {
 		return (
 			<span>
-				Generated at <a href={`/${props.route}`}>/{props.route}</a>
+				Generated at <a href={`${process.env.PUBLIC_URL}/${props.route}`}>/{props.route}</a>
 			</span>
 		);
 	}
