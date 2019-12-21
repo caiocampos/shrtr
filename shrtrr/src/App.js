@@ -3,7 +3,7 @@ import Routes from './components/Routes';
 import { BrowserRouter } from 'react-router-dom';
 
 const App = props => (
-	<BrowserRouter>
+	<BrowserRouter basename="/shrtr">
 		<Routes />
 	</BrowserRouter>
 );
