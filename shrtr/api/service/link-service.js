@@ -3,6 +3,12 @@ class LinkService {
 		this.repository = repo;
 		this.msg = msg;
 	}
+	count(query, success, error) {
+		this.repository.count(query, success, error);
+	}
+	countAll(success, error) {
+		this.repository.countAll(success, error);
+	}
 	find(query, success, error) {
 		this.repository.find(query, success, error);
 	}

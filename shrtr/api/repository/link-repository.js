@@ -3,6 +3,12 @@ class LinkRepository {
 		this.col = 'link';
 		this.repository = repo;
 	}
+	count(query, success, error) {
+		this.repository.count(this.col, query, success, error);
+	}
+	countAll(success, error) {
+		this.repository.count(this.col, {}, success, error);
+	}
 	find(query, success, error) {
 		this.repository.find(this.col, query, success, error);
 	}

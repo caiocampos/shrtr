@@ -6,44 +6,15 @@ import Form from '../../components/Form';
 import Service from '../../services/shrtr.service';
 
 const defaultMessage = 'Please enter a link to shorten';
+const waitingCalculations = 'Waiting for server calculations...';
 
 class Shrtr extends PureComponent {
 	state = {
 		link: '',
 		shrt: '',
 		response: defaultMessage,
-		loading: false
-	};
-	setResponse = response => {
-		if (!response) {
-			response = defaultMessage;
-		}
-		this.setState({ response: response });
-	};
-	loading = (loading = true) => {
-		this.setState({ loading: loading });
-	};
-	handleInputChange = event => {
-		event.preventDefault();
-		const target = event.target;
-		const name = target.name;
-		const value =
-			target.type === 'checkbox' ? target.checked : target.value;
-		this.setState({
-			[name]: value
-		});
-	};
-	shorten = event => {
-		event.preventDefault();
-		if (!this.state.link) {
-			this.setResponse();
-			return;
-		}
-		this.loading();
-		Service.shorten(this.state.link, this.state.shrt).then(res => {
-			this.setResponse(res);
-			this.loading(false);
-		});
+		loading: false,
+		countResponse: waitingCalculations
 	};
 	getStatus = () => (this.state.loading ? 'Loading...' : this.state.response);
 	getTextInputList = () => [
@@ -62,10 +33,57 @@ class Shrtr extends PureComponent {
 			placeholder: '🌐 Custom alias (optional)'
 		}
 	];
+	setLoading = (loading = true) => {
+		this.setState({ loading: loading });
+	};
+	setCountResponse = countResponse =>
+		this.setState({ countResponse: countResponse });
+	setResponse = response =>
+		!response
+			? (response = defaultMessage)
+			: this.setState({ response: response });
+	callCount = () =>
+		Service.count()
+			.then(count =>
+				this.setCountResponse(`There are ${count} shortened links!`)
+			)
+			.catch(
+				error =>
+					console.log(error) ||
+					this.setCountResponse('An error has occurred!')
+			);
+	handleInputChange = event => {
+		event.preventDefault();
+		const target = event.target;
+		const name = target.name;
+		const value =
+			target.type === 'checkbox' ? target.checked : target.value;
+		this.setState({
+			[name]: value
+		});
+	};
+	shorten = event => {
+		event.preventDefault();
+		if (!this.state.link) {
+			this.setResponse();
+			return;
+		}
+		this.setLoading();
+		this.setCountResponse(waitingCalculations);
+		Service.shorten(this.state.link, this.state.shrt).then(res => {
+			this.setResponse(res);
+			this.setLoading(false);
+			this.callCount();
+		});
+	};
+	componentDidMount() {
+		this.callCount();
+	}
 	render() {
 		return (
 			<Wrapper>
 				<Title title='Shrtr'>The independent shortener</Title>
+				<Status>{this.state.countResponse}</Status>
 				<Status>{this.getStatus()}</Status>
 				<Form
 					submited={this.shorten}

@@ -1,9 +1,21 @@
 import Constants from '../constants';
-import { ShrtrServiceResponseObject } from '../components/ShrtrServiceResponse';
+import { ShortenResponseObject } from '../components/ShortenResponse';
 
 const emptyErr = 'Nothing returned';
 
+const headers = new Headers({
+	'Content-Type': 'application/json',
+	'Access-Control-Allow-Origin': '*'
+});
+
 class ShrtrService {
+	static count() {
+		const request = new Request(`${Constants.server}/@/count`, {
+			method: 'GET',
+			headers: headers
+		});
+		return fetch_retry(request, 10).then(parseResponse);
+	}
 	static shorten(link, shrt) {
 		const request = new Request(`${Constants.server}/`, {
 			method: 'POST',
@@ -11,38 +23,42 @@ class ShrtrService {
 				link: link,
 				shrt: shrt
 			}),
-			headers: new Headers({
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*'
-			})
+			headers: headers
 		});
 		return fetch(request)
-			.then(res => {
-				if (!res.ok) {
-					throw res.json();
-				}
-				return res.json();
-			})
-			.then(data => {
-				if (!data || !data.length) {
-					throw emptyErr;
-				}
-				const shrt = data[0].shrt;
-				return Promise.resolve(unwrapResponse(shrt));
-			})
-			.catch(error => {
-				const promise =
-					error instanceof Promise ? error : Promise.resolve(error);
-				return promise.then(err => {
-					err = err && err.message ? err.message : err;
-					return Promise.resolve(unwrapResponse(null, err));
-				});
-			});
+			.then(parseResponse)
+			.then(data =>
+				!data || !data.length
+					? Promise.reject(emptyErr)
+					: Promise.resolve(unwrapShortenResponse(data[0].shrt))
+			)
+			.catch(error =>
+				promiseError(error).then(err =>
+					Promise.resolve(unwrapShortenResponse(null, err))
+				)
+			);
 	}
+	static;
 }
 
-function unwrapResponse(route, error) {
-	return ShrtrServiceResponseObject.build(route, error);
-}
+const fetch_retry = (request, n, delay) =>
+	fetch(request).catch(error =>
+		n === 1
+			? Promise.reject(error)
+			: wait(delay || 5000).then(() => fetch_retry(request, n - 1))
+	);
+
+export const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+
+export const parseResponse = res =>
+	!res.ok ? Promise.reject(res.json()) : res.json();
+
+export const promiseError = error => {
+	let promise = error instanceof Promise ? error : Promise.resolve(error);
+	return promise.then(e => Promise.resolve(e && e.message ? e.message : e));
+};
+
+export const unwrapShortenResponse = (route, error) =>
+	ShortenResponseObject.build(route, error);
 
 export default ShrtrService;

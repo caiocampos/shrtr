@@ -7,6 +7,17 @@ class LinkController {
 	get(req, res) {
 		res.redirect(Constants.shrtrr);
 	}
+	countAll(req, res) {
+		this.service.countAll(
+			data => {
+				res.json(data);
+			},
+			err => {
+				console.log(err);
+				res.status(400).json(err);
+			}
+		);
+	}
 	find(req, res) {
 		if (req.params.shrt.includes('.')) {
 			res.sendFile(req.params.shrt, { root: './static' });

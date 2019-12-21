@@ -17,8 +17,15 @@ describe('Test the root path', () => {
 	test('It should response the GET /@ method with 200', () => {
 		return request(app)
 			.get('/@')
-			.expect(200)
-			.expect('Content-Type', /json/);
+			.expect('Content-Type', /json/)
+			.expect(200);
+	});
+
+	test('It should response the GET /@/count method with 200', () => {
+		return request(app)
+			.get('/@/count')
+			.expect('Content-Type', /json/)
+			.expect(200);
 	});
 
 	test('It should response the GET /TESTE method with 302', () => {

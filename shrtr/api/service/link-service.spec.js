@@ -7,6 +7,38 @@ describe('Test the LinkService', () => {
 	const shrtTest = 'TESTE@@';
 	const expectError = 'Expected Error';
 
+	test('It should response the countAll method', done => {
+		linkService.countAll(
+			data => {
+				expect(data).toBeGreaterThanOrEqual(0);
+				done();
+			},
+			error => done(error)
+		);
+	});
+
+	test('It should response the count method with empty request', done => {
+		linkService.count(
+			{},
+			data => {
+				expect(data).toBeGreaterThanOrEqual(0);
+				done();
+			},
+			error => done(error)
+		);
+	});
+
+	test('It should response the count method', done => {
+		linkService.count(
+			{ shrt: 'TEST' },
+			data => {
+				expect(data).toEqual(0);
+				done();
+			},
+			error => done(error)
+		);
+	});
+
 	test('It should response the findAll method', done => {
 		linkService.findAll(
 			data => {

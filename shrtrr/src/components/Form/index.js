@@ -7,7 +7,7 @@ const Form = props => (
 		<span className={props.className}>
 			<form onSubmit={props.submited}>
 				{props.children}
-				<TextInputList inputs={props.textInputList}/>
+				<TextInputList inputs={props.textInputList} />
 				<input
 					type='submit'
 					value={props.submitText}
