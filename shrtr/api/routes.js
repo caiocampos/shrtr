@@ -1,15 +1,18 @@
-module.exports = {
-	init: (express, cors) => {
-		const router = express.Router();
-		const controller = require('./controller').init();
+import Express from 'express';
+import Controller from './controller.js';
+
+export default {
+	init: (cors) => {
+		const router = Express.Router();
+		const controller = Controller.init();
 		const linkController = controller.link;
 
 		router.options('/', cors);
-		router.get('/@', linkController.findAll.bind(linkController));
-		router.get('/@/count', linkController.countAll.bind(linkController));
-		router.post('/', linkController.generate.bind(linkController));
-		router.get('/:shrt', linkController.find.bind(linkController));
-		router.get('/', linkController.get.bind(linkController));
+		router.get('/@', linkController.findAll);
+		router.get('/@/count', linkController.countAll);
+		router.post('/', linkController.generate);
+		router.get('/:shrt', linkController.find);
+		router.get('/', linkController.get);
 
 		return router;
 	}

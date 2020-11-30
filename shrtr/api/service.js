@@ -1,12 +1,12 @@
+import Constants from './constants.js';
+import Repository from './repository.js';
+import LinkService from './service/link-service.js';
+
 class Service {
 	constructor() {
-		const Constants = require('./constants');
-		const Repository = require('./repository');
-		const LinkService = require('./service/link-service');
-
 		const repo = new Repository();
-
 		this.link = new LinkService(repo.link, Constants.messages);
 	}
 }
-module.exports = Service;
+
+export default Service;

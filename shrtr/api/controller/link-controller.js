@@ -1,31 +1,34 @@
-const Constants = require('../constants');
+import Constants from '../constants.js';
 
 class LinkController {
 	constructor(service) {
 		this.service = service;
 	}
-	get(req, res) {
+
+	get = (req, res) => {
 		res.redirect(Constants.shrtrr);
-	}
-	countAll(req, res) {
+	};
+
+	countAll = (req, res) => {
 		this.service.countAll(
-			data => {
+			(data) => {
 				res.json(data);
 			},
-			err => {
+			(err) => {
 				console.log(err);
 				res.status(400).json(err);
 			}
 		);
-	}
-	find(req, res) {
+	};
+
+	find = (req, res) => {
 		if (req.params.shrt.includes('.')) {
 			res.sendFile(req.params.shrt, { root: './static' });
 			return;
 		}
 		this.service.find(
 			{ shrt: req.params.shrt },
-			data => {
+			(data) => {
 				if (!data.length) {
 					throw 'Nothing returned';
 				}
@@ -33,34 +36,37 @@ class LinkController {
 				link = /https?:\/\//.test(link) ? link : `http://${link}`;
 				res.redirect(link);
 			},
-			err => {
+			(err) => {
 				console.log(err);
 				res.redirect(`${Constants.shrtrr}/err/error`);
 			}
 		);
-	}
-	findAll(req, res) {
+	};
+
+	findAll = (req, res) => {
 		this.service.findAll(
-			data => {
+			(data) => {
 				res.json(data);
 			},
-			err => {
+			(err) => {
 				console.log(err);
 				res.status(400).json(err);
 			}
 		);
-	}
-	generate(req, res) {
+	};
+
+	generate = (req, res) => {
 		this.service.generate(
 			req.body,
-			data => {
+			(data) => {
 				res.json(data);
 			},
-			err => {
+			(err) => {
 				console.log(err);
 				res.status(400).json(err);
 			}
 		);
-	}
+	};
 }
-module.exports = LinkController;
+
+export default LinkController;

@@ -1,21 +1,22 @@
+import Express from 'express';
+import BodyParser from 'body-parser';
+import Cors from 'cors';
+import Routes from './routes.js';
+
 const app = (() => {
-	const express = require('express');
-	const parser = require('body-parser');
-	const cors = require('cors')();
-
-	const exp = express();
-
-	const routes = require('./routes').init(express, cors);
+	const cors = Cors();
+	const exp = Express();
+	const routes = Routes.init(cors);
 
 	exp.use(cors);
-	exp.use(parser.json());
-	exp.use(parser.urlencoded({ extended: true }));
+	exp.use(BodyParser.json());
+	exp.use(BodyParser.urlencoded({ extended: true }));
 
-	exp.use(express.static('public'));
+	exp.use(Express.static('public'));
 
 	exp.use(routes);
 
 	return exp;
 })();
 
-module.exports = app;
+export default app;
