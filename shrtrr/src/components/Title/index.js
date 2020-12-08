@@ -1,11 +1,11 @@
 import React from 'react';
 import classes from './Title.module.scss';
 
-const Title = props => (
+const Title = ({ className, title, children }) => (
 	<div className={classes.Title}>
-		<span className={props.className}>
-			<h1>{props.title}</h1>
-			<h3>{props.children}</h3>
+		<span className={className}>
+			<h1>{title}</h1>
+			<h3>{children}</h3>
 		</span>
 	</div>
 );

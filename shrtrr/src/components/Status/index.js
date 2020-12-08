@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './Status.module.scss';
 
-const Status = props => (
+const Status = ({ className, children }) => (
 	<h4 className={classes.Status}>
-		<span className={props.className}>{props.children}</span>
+		<span className={className}>{children}</span>
 	</h4>
 );
 

@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import Wrapper from '../../components/Wrapper';
 
-const E404 = props => {
-	const [counter, setCounter] = useState(5);
-	const [route, setRoute] = useState(<></>);
-	useEffect(() => {
-		if (!counter) {
-			setRoute(<Redirect to='/' />);
-		} else {
-			setTimeout(() => setCounter(counter - 1), 1000);
-		}
-	}, [counter, route]);
+const E404 = () => {
+	const [ counter, setCounter ] = useState(5);
+	const [ route, setRoute ] = useState(<Fragment />);
+	useEffect(
+		() => {
+			if (!counter) {
+				setRoute(<Redirect to="/" />);
+			} else {
+				setTimeout(() => setCounter(counter - 1), 1000);
+			}
+		},
+		[ counter, route ]
+	);
 	return (
 		<Wrapper>
 			<h1>404</h1>

@@ -1,10 +1,7 @@
 import React from 'react';
 import TextInput from '../TextInput';
 
-const renderInput = (
-	{ className, name, value, changed, placeholder, required, focus },
-	i
-) => (
+const renderInput = ({ className, name, value, changed, placeholder, required, focus }, i) => (
 	<TextInput
 		key={i}
 		className={className}
@@ -17,7 +14,6 @@ const renderInput = (
 	/>
 );
 
-const TextInputList = props =>
-	!(props.inputs instanceof Array) ? null : props.inputs.map(renderInput);
+const TextInputList = ({ inputs }) => (!(inputs instanceof Array) ? null : inputs.map(renderInput));
 
 export default React.memo(TextInputList);

@@ -1,17 +1,17 @@
 import React from 'react';
 import classes from './TextInput.module.scss';
 
-const TextInput = props => (
+const TextInput = ({ className, name, value, changed, placeholder, required, focus }) => (
 	<span className={classes.TextInput}>
 		<input
-			type='text'
-			className={props.className}
-			name={props.name}
-			value={props.value}
-			onChange={props.changed}
-			placeholder={props.placeholder}
-			required={props.required}
-			autoFocus={props.focus}
+			type="text"
+			className={className}
+			name={name}
+			value={value}
+			onChange={changed}
+			placeholder={placeholder}
+			required={required}
+			autoFocus={focus}
 		/>
 	</span>
 );

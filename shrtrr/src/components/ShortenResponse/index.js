@@ -1,22 +1,19 @@
 import React from 'react';
 
-const ShortenResponse = props => {
-	if (props.error) {
+const ShortenResponse = ({ error, route }) => {
+	if (error) {
 		return (
 			<span>
 				Error trying to generate link.
 				<br />
-				{props.error}
+				{error}
 			</span>
 		);
 	}
-	if (props.route) {
+	if (route) {
 		return (
 			<span>
-				Generated at{' '}
-				<a href={`${process.env.PUBLIC_URL}/${props.route}`}>
-					/{props.route}
-				</a>
+				Generated at <a href={`${process.env.PUBLIC_URL}/${route}`}>/{route}</a>
 			</span>
 		);
 	}
