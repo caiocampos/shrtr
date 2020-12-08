@@ -1,18 +1,18 @@
-const $ = selector => {
-	return document.querySelector(selector);
-};
+const $ = (selector) => document.querySelector(selector);
 
-function newColor() {
-	const randomColor = `#${((1 << 24) * Math.random() | 0).toString(16)}`;
+const maxColorNum = 1 << 24;
+
+const newColor = () => {
+	const randomColor = `#${((maxColorNum * Math.random()) | 0).toString(16)}`;
 	document.documentElement.style.setProperty('--main-bg-color', randomColor);
-}
+};
 
 newColor();
 
-function shorten() {
+const shorten = () => {
 	const data = {
-		link: $("#link").value,
-		shrt: $("#shrt").value
+		link: $('#link').value,
+		shrt: $('#shrt').value
 	};
 	const request = new Request('/', {
 		method: 'POST',
@@ -22,21 +22,25 @@ function shorten() {
 		})
 	});
 	fetch(request)
-		.then(res => {
+		.then((res) => {
 			if (!res.ok) {
 				throw res.json();
 			}
 			return res.json();
-		}).then(data => {
+		})
+		.then((data) => {
 			if (!data || !data.length) {
 				throw 'Nothing returned';
 			}
 			const shrt = data[0].shrt;
 			$('#response').innerHTML = `Generated at <a href="/${shrt}">/${shrt}</a>`;
-		}).catch(error => {
+		})
+		.catch((error) => {
 			const promise = error instanceof Promise ? error : Promise.resolve(error);
-			promise.then(err => {
-				$('#response').innerHTML = `Error trying to generate link.<br>${err && err.message ? err.message : err}`;
+			promise.then((err) => {
+				$('#response').innerHTML = `Error trying to generate link.<br>${err && err.message
+					? err.message
+					: err}`;
 			});
 		});
-}
+};

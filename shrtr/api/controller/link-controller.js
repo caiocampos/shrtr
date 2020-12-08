@@ -1,4 +1,4 @@
-import Constants from '../constants.js';
+const Constants = require('../constants');
 
 class LinkController {
 	constructor(service) {
@@ -69,4 +69,4 @@ class LinkController {
 	};
 }
 
-export default LinkController;
+module.exports = LinkController;

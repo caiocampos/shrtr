@@ -1,5 +1,5 @@
-import AbsRepository from './repository/abs-repository.js';
-import LinkRepository from './repository/link-repository.js';
+const AbsRepository = require('./repository/abs-repository');
+const LinkRepository = require('./repository/link-repository');
 
 class Repository {
 	constructor() {
@@ -8,4 +8,4 @@ class Repository {
 	}
 }
 
-export default Repository;
+module.exports = Repository;

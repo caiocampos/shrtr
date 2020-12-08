@@ -1,4 +1,4 @@
-import tingodb from 'tingodb';
+const tingodb = require('tingodb');
 
 const { ObjectID, Db } = tingodb();
 
@@ -83,4 +83,4 @@ class AbsRepository {
 	};
 }
 
-export default AbsRepository;
+module.exports = AbsRepository;

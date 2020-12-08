@@ -1,9 +1,9 @@
-import Express from 'express';
-import BodyParser from 'body-parser';
-import Cors from 'cors';
-import Routes from './routes.js';
+const Express = require('express');
+const BodyParser = require('body-parser');
+const Cors = require('cors');
+const Routes = require('./routes');
 
-const app = (() => {
+appInit = () => {
 	const cors = Cors();
 	const exp = Express();
 	const routes = Routes.init(cors);
@@ -17,6 +17,8 @@ const app = (() => {
 	exp.use(routes);
 
 	return exp;
-})();
+};
 
-export default app;
+const app = appInit();
+
+module.exports = app;
