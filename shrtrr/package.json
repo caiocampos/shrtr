@@ -10,7 +10,7 @@
 	},
 	"devDependencies": {
 		"node-sass": "npm:sass",
-		"react-scripts": "~4.0.1",
+		"react-scripts": "~4.0.3",
 		"sass": "^1.32.8"
 	},
 	"scripts": {
