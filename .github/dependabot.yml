@@ -1,0 +1,44 @@
+version: 2
+registries:
+  npm-registry-npm-pkg-github-com-caiocampos:
+    type: npm-registry
+    url: https://npm.pkg.github.com/caiocampos
+    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_CAIOCAMPOS_TOKEN}}"
+
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "08:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - caiocampos
+  assignees:
+  - caiocampos
+  registries:
+  - npm-registry-npm-pkg-github-com-caiocampos
+- package-ecosystem: npm
+  directory: "/shrtr"
+  schedule:
+    interval: daily
+    time: "08:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - caiocampos
+  assignees:
+  - caiocampos
+  registries:
+  - npm-registry-npm-pkg-github-com-caiocampos
+- package-ecosystem: npm
+  directory: "/shrtrr"
+  schedule:
+    interval: daily
+    time: "08:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - caiocampos
+  assignees:
+  - caiocampos
+  registries:
+  - npm-registry-npm-pkg-github-com-caiocampos
