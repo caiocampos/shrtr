@@ -1,10 +1,4 @@
 version: 2
-registries:
-  npm-registry-npm-pkg-github-com-caiocampos:
-    type: npm-registry
-    url: https://npm.pkg.github.com/caiocampos
-    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_CAIOCAMPOS_TOKEN}}"
-
 updates:
 - package-ecosystem: npm
   directory: "/"
@@ -16,8 +10,6 @@ updates:
   - caiocampos
   assignees:
   - caiocampos
-  registries:
-  - npm-registry-npm-pkg-github-com-caiocampos
 - package-ecosystem: npm
   directory: "/shrtr"
   schedule:
@@ -28,8 +20,6 @@ updates:
   - caiocampos
   assignees:
   - caiocampos
-  registries:
-  - npm-registry-npm-pkg-github-com-caiocampos
 - package-ecosystem: npm
   directory: "/shrtrr"
   schedule:
@@ -40,5 +30,3 @@ updates:
   - caiocampos
   assignees:
   - caiocampos
-  registries:
-  - npm-registry-npm-pkg-github-com-caiocampos
