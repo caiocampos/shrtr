@@ -77,4 +77,4 @@ class LinkService {
 	};
 }
 
-module.exports = LinkService;
+export default LinkService;

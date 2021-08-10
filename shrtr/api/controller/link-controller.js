@@ -1,4 +1,4 @@
-const Constants = require('../constants');
+import Constants from '../constants.js';
 
 class LinkController {
 	constructor(service) {
@@ -6,7 +6,11 @@ class LinkController {
 	}
 
 	get = (req, res) => {
-		res.redirect(Constants.shrtrr);
+		if (process.env.NODE_ENV === 'local') {
+			res.sendFile('index.html', { root: './static' });
+		} else {
+			res.redirect(Constants.shrtrr);
+		}
 	};
 
 	countAll = (req, res) => {
@@ -69,4 +73,4 @@ class LinkController {
 	};
 }
 
-module.exports = LinkController;
+export default LinkController;

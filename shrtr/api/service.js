@@ -1,6 +1,6 @@
-const Constants = require('./constants');
-const Repository = require('./repository');
-const LinkService = require('./service/link-service');
+import Constants from './constants.js';
+import Repository from './repository.js';
+import LinkService from './service/link-service.js';
 
 class Service {
 	constructor() {
@@ -9,4 +9,4 @@ class Service {
 	}
 }
 
-module.exports = Service;
+export default Service;

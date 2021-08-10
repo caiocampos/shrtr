@@ -3,21 +3,25 @@
 	"version": "0.0.1",
 	"description": "Encurtador de links",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"start": "node ./index.js",
 		"test": "jest",
-		"coverage": "jest --coverage"
+		"coverage": "jest --coverage",
+		"prettier": "prettier --write .",
+		"nvm-config": "node -v > .nvmrc"
 	},
 	"author": "Caio Campos",
 	"license": "MIT",
 	"dependencies": {
-		"body-parser": "~1.19.0",
 		"cors": "~2.8.5",
+		"dotenv": "^10.0.0",
 		"express": "~4.17.1",
-		"tingodb": "~0.6.1"
+		"mongodb": "^4.1.0"
 	},
 	"devDependencies": {
 		"jest": "^27.0.6",
+		"prettier": "^2.3.2",
 		"supertest": "~6.1.4"
 	},
 	"jest": {

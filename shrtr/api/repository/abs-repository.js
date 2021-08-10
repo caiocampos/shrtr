@@ -1,15 +1,26 @@
-const tingodb = require('tingodb');
+import { MongoClient, ObjectId } from 'mongodb';
 
-const { ObjectID, Db } = tingodb();
+const newId = (id) => new ObjectId(id);
+
+const getDb = () => process.env.MONGO_DB;
+const getDbUri = () => process.env.MONGO_URI;
+
+const getCollection = (client, collection) => client.db(getDb()).collection(collection);
 
 class AbsRepository {
 	constructor() {
-		this.db = new Db('./db', {});
+		this.init();
 	}
+
+	init = async () => {
+		const client = new MongoClient(getDbUri(), { useNewUrlParser: true, useUnifiedTopology: true });
+		await client.connect().catch(console.error);
+		this.client = client;
+	};
 
 	count = (collection, query, success, error) => {
 		try {
-			const col = this.db.collection(collection);
+			const col = getCollection(this.client, collection);
 			col.count(query, (err, result) => {
 				if (!err) {
 					success(result);
@@ -24,7 +35,7 @@ class AbsRepository {
 
 	find = (collection, query, success, error) => {
 		try {
-			const col = this.db.collection(collection);
+			const col = getCollection(this.client, collection);
 			col.find(query).toArray((err, result) => {
 				if (!err) {
 					success(result);
@@ -39,10 +50,10 @@ class AbsRepository {
 
 	insert = (collection, obj, success, error) => {
 		try {
-			const col = this.db.collection(collection);
-			col.insert(obj, (err, result) => {
+			const col = getCollection(this.client, collection);
+			col.insertOne(obj, (err, result) => {
 				if (!err) {
-					success(result);
+					success({ ...obj, _id: result.insertedId });
 				} else {
 					error(err);
 				}
@@ -54,8 +65,8 @@ class AbsRepository {
 
 	remove = (collection, obj, success, error) => {
 		try {
-			const col = this.db.collection(collection);
-			col.remove({ _id: new ObjectID(obj._id) }, (err, result) => {
+			const col = getCollection(this.client, collection);
+			col.deleteOne({ _id: newId(obj._id) }, (err, result) => {
 				if (!err) {
 					success(result);
 				} else {
@@ -69,8 +80,8 @@ class AbsRepository {
 
 	update = (collection, obj, success, error) => {
 		try {
-			const col = this.db.collection(collection);
-			col.update({ _id: new ObjectID(obj._id) }, { $set: obj.update }, (err, result) => {
+			const col = getCollection(this.client, collection);
+			col.updateOne({ _id: newId(obj._id) }, { $set: obj.update }, (err, result) => {
 				if (!err) {
 					success(result);
 				} else {
@@ -83,4 +94,4 @@ class AbsRepository {
 	};
 }
 
-module.exports = AbsRepository;
+export default AbsRepository;

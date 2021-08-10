@@ -1,9 +1,13 @@
 class Constants {
-	static shrtrr = 'https://caiocampos.github.io/shrtr';
+	static get shrtrr() {
+		return 'https://caiocampos.github.io/shrtr';
+	}
 
-	static messages = {
-		emptyRequest: { message: 'Empty request body' }
-	};
+	static get messages() {
+		const msg = {};
+		msg.emptyRequest = { message: 'Empty request body' };
+		return msg;
+	}
 }
 
-module.exports = Constants;
+export default Constants;

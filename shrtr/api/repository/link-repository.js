@@ -40,4 +40,4 @@ class LinkRepository {
 	};
 }
 
-module.exports = LinkRepository;
+export default LinkRepository;

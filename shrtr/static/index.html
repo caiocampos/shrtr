@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Shrtr</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Shrtr</title>
-	<link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-	<input class="color" type="button" value="New Color 🎨" onclick="newColor()">
-	<div class="main">
-		<div class="title">
-			<h1>Shrtr</h1>
-			<h3>The independent shortener</h3>
+	<body>
+		<input class="color" type="button" value="New Color 🎨" onclick="newColor()" />
+		<div class="main">
+			<div class="title">
+				<h1>Shrtr</h1>
+				<h3>The independent shortener</h3>
+			</div>
+			<h4 id="response"></h4>
+			<div class="form">
+				<form>
+					<input id="link" type="text" placeholder="🌐 Enter the long URL" required />
+					<input id="shrt" type="text" placeholder="🌐 Custom alias (optional)" />
+					<input type="button" value="Shorten 🔗" onclick="shorten()" />
+				</form>
+			</div>
 		</div>
-		<h4 id="response"></h4>
-		<div class="form">
-			<form>
-				<input id="link" type="text" placeholder="🌐 Enter the long URL" required>
-				<input id="shrt" type="text" placeholder="🌐 Custom alias (optional)">
-				<input type="button" value="Shorten 🔗" onclick="shorten()">
-			</form>
-		</div>
-	</div>
-    <script src="script.js"></script>
-  </body>
+		<script src="script.js"></script>
+	</body>
 </html>

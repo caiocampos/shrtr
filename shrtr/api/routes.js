@@ -1,8 +1,8 @@
-const Express = require('express');
-const Controller = require('./controller');
+import Express from 'express';
+import Controller from './controller.js';
 
-class Routes {
-	static init = (cors) => {
+export default {
+	init: (cors) => {
 		const router = Express.Router();
 		const controller = Controller.init();
 		const linkController = controller.link;
@@ -15,7 +15,5 @@ class Routes {
 		router.get('/', linkController.get);
 
 		return router;
-	};
-}
-
-module.exports = Routes;
+	}
+};

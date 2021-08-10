@@ -1,24 +1,25 @@
-const Express = require('express');
-const BodyParser = require('body-parser');
-const Cors = require('cors');
-const Routes = require('./routes');
+import Express from 'express';
+import Cors from 'cors';
+import dotenv from 'dotenv';
+import Routes from './routes.js';
 
-appInit = () => {
-	const cors = Cors();
-	const exp = Express();
-	const routes = Routes.init(cors);
+const app = {
+	config: () => {
+		dotenv.config();
+		const cors = Cors();
+		const exp = Express();
+		const routes = Routes.init(cors);
 
-	exp.use(cors);
-	exp.use(BodyParser.json());
-	exp.use(BodyParser.urlencoded({ extended: true }));
+		exp.use(cors);
+		exp.use(Express.urlencoded({ extended: true }));
+		exp.use(Express.json());
 
-	exp.use(Express.static('public'));
+		exp.use(Express.static('public'));
 
-	exp.use(routes);
+		exp.use(routes);
 
-	return exp;
+		return exp;
+	}
 };
 
-const app = appInit();
-
-module.exports = app;
+export default app;

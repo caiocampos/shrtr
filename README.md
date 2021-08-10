@@ -8,4 +8,4 @@
 [![License](https://img.shields.io/github/license/caiocampos/shrtr.svg)](LICENSE)
 
 
-Encurtador de links usando React, Express e TingoDB
+Encurtador de links usando React, Express e MongoDB

@@ -30,9 +30,9 @@ class ShrtrService {
 			.then(parseResponse)
 			.then(
 				(data) =>
-					!data || !data.length
+					!data
 						? Promise.reject(emptyErr)
-						: Promise.resolve(unwrapShortenResponse(data[0].shrt))
+						: Promise.resolve(unwrapShortenResponse(data.shrt))
 			)
 			.catch((error) => promiseError(error).then((err) => Promise.resolve(unwrapShortenResponse(null, err))));
 	};
