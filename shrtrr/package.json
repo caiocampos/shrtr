@@ -11,6 +11,7 @@
 	"devDependencies": {
 		"node-sass": "npm:sass",
 		"react-scripts": "~4.0.3",
+		"prettier": "^2.3.2",
 		"sass": "^1.37.5"
 	},
 	"scripts": {
@@ -19,7 +20,8 @@
 		"test": "react-scripts test --all --watchAll=false",
 		"twatch": "react-scripts test --all",
 		"coverage": "react-scripts test --all --watchAll=false --coverage",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"prettier": "prettier --write ."
 	},
 	"homepage": "https://caiocampos.github.io/shrtr/",
 	"eslintConfig": {

@@ -28,19 +28,14 @@ class ShrtrService {
 		});
 		return fetch(request)
 			.then(parseResponse)
-			.then(
-				(data) =>
-					!data
-						? Promise.reject(emptyErr)
-						: Promise.resolve(unwrapShortenResponse(data.shrt))
-			)
+			.then((data) => (!data ? Promise.reject(emptyErr) : Promise.resolve(unwrapShortenResponse(data.shrt))))
 			.catch((error) => promiseError(error).then((err) => Promise.resolve(unwrapShortenResponse(null, err))));
 	};
 }
 
 const fetch_retry = (request, n, delay) =>
-	fetch(request).catch(
-		(error) => (n === 1 ? Promise.reject(error) : wait(delay || 5000).then(() => fetch_retry(request, n - 1)))
+	fetch(request).catch((error) =>
+		n === 1 ? Promise.reject(error) : wait(delay || 5000).then(() => fetch_retry(request, n - 1))
 	);
 
 export const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));

@@ -1,9 +1,4 @@
-import ShrtrService, {
-	parseResponse,
-	promiseError,
-	unwrapShortenResponse,
-	wait
-} from './shrtr.service';
+import ShrtrService, { parseResponse, promiseError, unwrapShortenResponse, wait } from './shrtr.service';
 
 it('runs shorten method', () => {
 	expect(ShrtrService.shorten()).toBeDefined();
@@ -18,30 +13,30 @@ it('runs parseResponse function', () => {
 	expect(parseResponse(res)).toBeDefined();
 });
 
-it('runs parseResponse function with a error Response', done => {
+it('runs parseResponse function with a error Response', (done) => {
 	const res = new Response({ error: 'error' }, { status: 400 });
-	parseResponse(res).catch(err => {
+	parseResponse(res).catch((err) => {
 		expect(err).toBeDefined();
 		done();
 	});
 });
 
-it('runs promiseError function with plain text', done => {
-	promiseError('err').then(data => {
+it('runs promiseError function with plain text', (done) => {
+	promiseError('err').then((data) => {
 		expect(data).toBe('err');
 		done();
 	});
 });
 
-it('runs promiseError function with object', done => {
-	promiseError({ message: 'err' }).then(data => {
+it('runs promiseError function with object', (done) => {
+	promiseError({ message: 'err' }).then((data) => {
 		expect(data).toBe('err');
 		done();
 	});
 });
 
-it('runs promiseError function with Promise', done => {
-	promiseError(Promise.resolve('err')).then(data => {
+it('runs promiseError function with Promise', (done) => {
+	promiseError(Promise.resolve('err')).then((data) => {
 		expect(data).toBe('err');
 		done();
 	});
