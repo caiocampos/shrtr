@@ -30,11 +30,14 @@ class LinkController {
 			res.sendFile(req.params.shrt, { root: './static' });
 			return;
 		}
+		const redirect = () => res.redirect(`${Constants.shrtrr}?error`);
 		this.service.find(
 			{ shrt: req.params.shrt },
 			(data) => {
 				if (!data.length) {
-					throw 'Nothing returned';
+					console.log('Nothing returned');
+					redirect();
+					return;
 				}
 				let link = data[0].link;
 				link = /https?:\/\//.test(link) ? link : `http://${link}`;
@@ -42,7 +45,7 @@ class LinkController {
 			},
 			(err) => {
 				console.log(err);
-				res.redirect(`${Constants.shrtrr}/err/error`);
+				redirect();
 			}
 		);
 	};

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import classes from './Color.module.scss';
 
 const maxColorNum = 1 << 24;
@@ -9,10 +9,10 @@ const newColor = () => {
 };
 
 const Color = () => (
-	<Fragment>
+	<>
 		{newColor()}
 		<input className={classes.Color} type="button" value="New Color 🎨" onClick={newColor} />
-	</Fragment>
+	</>
 );
 
 export default React.memo(Color);

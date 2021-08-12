@@ -1,4 +1,5 @@
 import React from 'react';
+import Constants from '../../constants';
 
 const ShortenResponse = ({ error, route }) => {
 	if (error) {
@@ -11,9 +12,10 @@ const ShortenResponse = ({ error, route }) => {
 		);
 	}
 	if (route) {
+		const link = `${Constants.server}/${route}`;
 		return (
 			<span>
-				Generated at <a href={`${process.env.PUBLIC_URL}/${route}`}>/{route}</a>
+				Generated at <a href={link}>{link}</a>
 			</span>
 		);
 	}

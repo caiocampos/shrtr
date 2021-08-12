@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Constants from '../../../constants';
 
 function redirect(match) {
@@ -6,6 +6,6 @@ function redirect(match) {
 	window.location = `${Constants.server}/${path}`;
 }
 
-const ToServer = ({ match }) => <Fragment>{redirect(match)}</Fragment>;
+const ToServer = ({ match }) => <>{redirect(match)}</>;
 
 export default ToServer;

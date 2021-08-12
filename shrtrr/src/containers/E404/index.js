@@ -1,23 +1,24 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Wrapper from '../../components/Wrapper';
+import { baseRoute } from '../../util';
 
 const E404 = () => {
 	const [counter, setCounter] = useState(5);
-	const [route, setRoute] = useState(<Fragment />);
+	const [redirect, setRedirect] = useState(null);
 	useEffect(() => {
 		if (!counter) {
-			setRoute(<Redirect to="/" />);
+			setRedirect(<Redirect to={baseRoute} />);
 		} else {
 			setTimeout(() => setCounter(counter - 1), 1000);
 		}
-	}, [counter, route]);
+	}, [counter, redirect]);
 	return (
 		<Wrapper>
 			<h1>404</h1>
 			<h3>File not found</h3>
 			<h4>You will be redirected in {counter} seconds</h4>
-			{route}
+			{redirect}
 		</Wrapper>
 	);
 };

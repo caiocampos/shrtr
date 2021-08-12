@@ -1,13 +1,20 @@
 import React from 'react';
+import { Redirect, useLocation } from 'react-router-dom';
 import classes from './Main.module.scss';
 import Shrtr from '../../containers/Shrtr';
 import Color from '../Color';
+import { errorRoute } from '../../util';
 
-const Main = () => (
-	<div className={classes.Main}>
-		<Color />
-		<Shrtr />
-	</div>
-);
+const Main = () => {
+	const location = useLocation();
+	return location.search === '?error' ? (
+		<Redirect to={errorRoute} />
+	) : (
+		<div className={classes.Main}>
+			<Color />
+			<Shrtr />
+		</div>
+	);
+};
 
 export default Main;
