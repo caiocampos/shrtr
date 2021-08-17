@@ -9,88 +9,104 @@ const getCollection = (client, collection) => client.db(getDb()).collection(coll
 
 class AbsRepository {
 	constructor() {
-		this.init();
+		const client = new MongoClient(getDbUri(), { useNewUrlParser: true, useUnifiedTopology: true });
+		const connectionPromise = client.connect().catch(console.error);
+		this.getConnectedClient = () => connectionPromise;
 	}
 
-	init = async () => {
-		const client = new MongoClient(getDbUri(), { useNewUrlParser: true, useUnifiedTopology: true });
-		await client.connect().catch(console.error);
-		this.client = client;
-	};
-
 	count = (collection, query, success, error) => {
-		try {
-			const col = getCollection(this.client, collection);
-			col.count(query, (err, result) => {
-				if (!err) {
-					success(result);
-				} else {
+		this.getConnectedClient()
+			.then((client) => {
+				try {
+					const col = getCollection(client, collection);
+					col.count(query, (err, result) => {
+						if (!err) {
+							success(result);
+						} else {
+							error(err);
+						}
+					});
+				} catch (err) {
 					error(err);
 				}
-			});
-		} catch (err) {
-			error(err);
-		}
+			})
+			.catch(error);
 	};
 
 	find = (collection, query, success, error) => {
-		try {
-			const col = getCollection(this.client, collection);
-			col.find(query).toArray((err, result) => {
-				if (!err) {
-					success(result);
-				} else {
+		this.getConnectedClient()
+			.then((client) => {
+				try {
+					const col = getCollection(client, collection);
+					col.find(query).toArray((err, result) => {
+						if (!err) {
+							success(result);
+						} else {
+							error(err);
+						}
+					});
+				} catch (err) {
 					error(err);
 				}
-			});
-		} catch (err) {
-			error(err);
-		}
+			})
+			.catch(error);
 	};
 
 	insert = (collection, obj, success, error) => {
-		try {
-			const col = getCollection(this.client, collection);
-			col.insertOne(obj, (err, result) => {
-				if (!err) {
-					success({ ...obj, _id: result.insertedId });
-				} else {
+		this.getConnectedClient()
+			.then((client) => {
+				try {
+					const col = getCollection(client, collection);
+					col.insertOne(obj, (err, result) => {
+						if (!err) {
+							success({ ...obj, _id: result.insertedId });
+						} else {
+							error(err);
+						}
+					});
+				} catch (err) {
 					error(err);
 				}
-			});
-		} catch (err) {
-			error(err);
-		}
+			})
+			.catch(error);
 	};
 
 	remove = (collection, obj, success, error) => {
-		try {
-			const col = getCollection(this.client, collection);
-			col.deleteOne({ _id: newId(obj._id) }, (err, result) => {
-				if (!err) {
-					success(result);
-				} else {
+		this.getConnectedClient()
+			.then((client) => {
+				try {
+					const col = getCollection(client, collection);
+					col.deleteOne({ _id: newId(obj._id) }, (err, result) => {
+						if (!err) {
+							success(result);
+						} else {
+							error(err);
+						}
+					});
+				} catch (err) {
 					error(err);
 				}
-			});
-		} catch (err) {
-			error(err);
-		}
+			})
+			.catch(error);
 	};
 
 	update = (collection, obj, success, error) => {
-		try {
-			const col = getCollection(this.client, collection);
-			col.updateOne({ _id: newId(obj._id) }, { $set: obj.update }, (err, result) => {
-				if (!err) {
-					success(result);
-				} else {
+		this.getConnectedClient()
+			.then((client) => {
+				try {
+					const col = getCollection(client, collection);
+					col.updateOne({ _id: newId(obj._id) }, { $set: obj.update }, (err, result) => {
+						if (!err) {
+							success(result);
+						} else {
+							error(err);
+						}
+					});
+				} catch (err) {
 					error(err);
 				}
-			});
-		} catch (err) {
-			error(err);
-		}
+			})
+			.catch(error);
 	};
 }
 
