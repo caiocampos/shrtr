@@ -11,7 +11,7 @@
 	"devDependencies": {
 		"node-sass": "npm:sass",
 		"react-scripts": "~4.0.3",
-		"prettier": "^2.3.2",
+		"prettier": "^2.4.0",
 		"sass": "^1.39.0"
 	},
 	"scripts": {
