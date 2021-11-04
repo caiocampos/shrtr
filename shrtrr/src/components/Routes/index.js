@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { baseRoute, errorRoute } from '../../util';
+import { Routes, Route } from 'react-router-dom';
+import { errorRoute } from '../../util';
 import ToServer from './ToServer';
 
 const loading = <div>Loading...</div>;
@@ -14,16 +14,16 @@ const lazyLoad = (importFunction) => {
 	);
 };
 
-const main = lazyLoad(() => import('../Main'));
-const e404 = lazyLoad(() => import('../../containers/E404'));
+const Main = lazyLoad(() => import('../Main'));
+const E404 = lazyLoad(() => import('../../containers/E404'));
 
-const Routes = () => (
-	<Switch>
-		<Route path={baseRoute} exact render={main} />
-		<Route path={errorRoute} exact render={e404} />
-		<Route path={'/:id'} component={ToServer} />
-		<Redirect from={baseRoute} to={errorRoute} />
-	</Switch>
+const AppRoutes = () => (
+	<Routes>
+		<Route index element={<Main />} />
+		<Route path={errorRoute} element={<E404 />} />
+		<Route path="/:id" element={<ToServer />} />
+		<Route path="*" element={<E404 />} />
+	</Routes>
 );
 
-export default Routes;
+export default AppRoutes;
