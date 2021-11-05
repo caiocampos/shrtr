@@ -24,8 +24,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Change Folder
-      run: cd shrtrr
     - name: Install
       run: npm install
     - name: Build
