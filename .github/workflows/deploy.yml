@@ -23,17 +23,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Change Folder
-      run: cd shrtrr
     - name: Install
       run: npm install
     - name: Build
       run: npm run build --if-present
     - name: Adjustment
       run: |
-           cd build
+           cd shrtrr/build
            cp index.html 404.html
-           cd ../..
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
