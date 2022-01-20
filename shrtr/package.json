@@ -22,7 +22,7 @@
 	"devDependencies": {
 		"jest": "^27.4.7",
 		"prettier": "^2.5.1",
-		"supertest": "~6.2.1"
+		"supertest": "~6.2.2"
 	},
 	"jest": {
 		"moduleFileExtensions": [
