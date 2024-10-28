@@ -19,7 +19,7 @@ class LinkController {
 				res.json(data);
 			},
 			(err) => {
-				console.log(err);
+				console.error(err);
 				res.status(400).json(err);
 			}
 		);
@@ -35,7 +35,7 @@ class LinkController {
 			{ shrt: req.params.shrt },
 			(data) => {
 				if (!data.length) {
-					console.log('Nothing returned');
+					console.error('Nothing returned');
 					redirect();
 					return;
 				}
@@ -44,7 +44,7 @@ class LinkController {
 				res.redirect(link);
 			},
 			(err) => {
-				console.log(err);
+				console.error(err);
 				redirect();
 			}
 		);
@@ -56,7 +56,7 @@ class LinkController {
 				res.json(data);
 			},
 			(err) => {
-				console.log(err);
+				console.error(err);
 				res.status(400).json(err);
 			}
 		);
@@ -69,7 +69,7 @@ class LinkController {
 				res.json(data);
 			},
 			(err) => {
-				console.log(err);
+				console.error(err);
 				res.status(400).json(err);
 			}
 		);

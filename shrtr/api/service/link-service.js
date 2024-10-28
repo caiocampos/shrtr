@@ -69,7 +69,7 @@ class LinkService {
 					}
 					this.insert(obj, success, error);
 				},
-				(err) => console.log(err)
+				(err) => console.error(err)
 			);
 		} else {
 			regenerate();

@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
-const newId = (id) => new ObjectId(id);
+const newId = (id) => ObjectId.createFromHexString(id);
 
 const getDb = () => process.env.MONGO_DB;
 const getDbUri = () => process.env.MONGO_URI;
@@ -9,23 +9,18 @@ const getCollection = (client, collection) => client.db(getDb()).collection(coll
 
 class AbsRepository {
 	constructor() {
-		const client = new MongoClient(getDbUri(), { useNewUrlParser: true, useUnifiedTopology: true });
+		const client = new MongoClient(getDbUri());
 		const connectionPromise = client.connect().catch(console.error);
 		this.getConnectedClient = () => connectionPromise;
 	}
 
 	count = (collection, query, success, error) => {
 		this.getConnectedClient()
-			.then((client) => {
+			.then(async (client) => {
 				try {
 					const col = getCollection(client, collection);
-					col.count(query, (err, result) => {
-						if (!err) {
-							success(result);
-						} else {
-							error(err);
-						}
-					});
+					const result = await col.countDocuments(query);
+					success(result);
 				} catch (err) {
 					error(err);
 				}
@@ -35,16 +30,11 @@ class AbsRepository {
 
 	find = (collection, query, success, error) => {
 		this.getConnectedClient()
-			.then((client) => {
+			.then(async (client) => {
 				try {
 					const col = getCollection(client, collection);
-					col.find(query).toArray((err, result) => {
-						if (!err) {
-							success(result);
-						} else {
-							error(err);
-						}
-					});
+					const result = await col.find(query).toArray();
+					success(result);
 				} catch (err) {
 					error(err);
 				}
@@ -54,16 +44,11 @@ class AbsRepository {
 
 	insert = (collection, obj, success, error) => {
 		this.getConnectedClient()
-			.then((client) => {
+			.then(async (client) => {
 				try {
 					const col = getCollection(client, collection);
-					col.insertOne(obj, (err, result) => {
-						if (!err) {
-							success({ ...obj, _id: result.insertedId });
-						} else {
-							error(err);
-						}
-					});
+					const result = await col.insertOne(obj);
+					success({ ...obj, _id: result.insertedId });
 				} catch (err) {
 					error(err);
 				}
@@ -73,16 +58,11 @@ class AbsRepository {
 
 	remove = (collection, obj, success, error) => {
 		this.getConnectedClient()
-			.then((client) => {
+			.then(async (client) => {
 				try {
 					const col = getCollection(client, collection);
-					col.deleteOne({ _id: newId(obj._id) }, (err, result) => {
-						if (!err) {
-							success(result);
-						} else {
-							error(err);
-						}
-					});
+					const result = await col.deleteOne({ _id: newId(obj._id) });
+					success(result);
 				} catch (err) {
 					error(err);
 				}
@@ -92,16 +72,11 @@ class AbsRepository {
 
 	update = (collection, obj, success, error) => {
 		this.getConnectedClient()
-			.then((client) => {
+			.then(async (client) => {
 				try {
 					const col = getCollection(client, collection);
-					col.updateOne({ _id: newId(obj._id) }, { $set: obj.update }, (err, result) => {
-						if (!err) {
-							success(result);
-						} else {
-							error(err);
-						}
-					});
+					const result = await col.updateOne({ _id: newId(obj._id) }, { $set: obj.update });
+					success(result);
 				} catch (err) {
 					error(err);
 				}

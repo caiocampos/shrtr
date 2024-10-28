@@ -45,7 +45,7 @@ class Shrtr extends PureComponent {
 	callCount = () =>
 		Service.count()
 			.then((count) => this.setCountResponse(`There are ${count} shortened links!`))
-			.catch((error) => console.log(error) || this.setCountResponse('An error has occurred!'));
+			.catch((error) => console.error(error) || this.setCountResponse('An error has occurred!'));
 
 	handleInputChange = (event) => {
 		event.preventDefault();
