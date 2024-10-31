@@ -1,1 +1,0 @@
-import{j as r}from"./index-DEaR76wr.js";const a="_Wrapper_1jw4o_1",e={Wrapper:a},t=({className:s,children:p})=>r.jsx("div",{className:e.Wrapper,children:r.jsx("span",{className:s,children:p})});export{t as W};
