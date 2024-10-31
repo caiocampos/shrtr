@@ -15,7 +15,7 @@ div.main {
 	margin-top: 60px;
 	margin-left: auto;
 	margin-right: auto;
-	border-radius: 60px;
+	border-radius: 48px;
 }
 
 #response {
@@ -42,7 +42,7 @@ input[type='button'].color {
 
 div.title {
 	width: 40%;
-	border-radius: 5px;
+	border-radius: 4px;
 	background-color: rgba(250, 250, 250, 0.5);
 	margin-left: auto;
 	margin-right: auto;
@@ -52,6 +52,7 @@ div.title {
 div.form {
 	background-color: rgba(250, 250, 250, 0.3);
 	padding: 10px;
+	border-radius: 8px;
 }
 
 div.form input[type='text'] {
