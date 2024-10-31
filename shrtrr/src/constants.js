@@ -1,5 +1,5 @@
 class Constants {
-	static server = 'https://shrtr.caiocampos.repl.co';
+	static server = process.env.REACT_APP_API_URL;
 }
 
 export default Constants;
