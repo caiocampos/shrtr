@@ -10,7 +10,7 @@ const headers = new Headers({
 
 class ShrtrService {
 	static count = () => {
-		const request = new Request(`${Constants.server}/@/count`, {
+		const request = new Request(`${Constants.server}/count`, {
 			method: 'GET',
 			headers: headers
 		});
