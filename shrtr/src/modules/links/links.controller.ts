@@ -13,7 +13,7 @@ export class LinksController {
     return this.linksService.findAll();
   }
 
-  @Get(':shrt')
+  @Get('@/:shrt')
   async find(
     @Res() response: Response,
     @Param('shrt') shrt: string,

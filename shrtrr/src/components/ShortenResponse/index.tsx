@@ -16,7 +16,7 @@ const ShortenResponse = ({ error, route }: IShortenResponse): React.JSX.Element 
 		);
 	}
 	if (route) {
-		const link = `${Constants.server}/${route}`;
+		const link = `${Constants.server}/@/${route}`;
 		return (
 			<span>
 				Generated at <a href={link}>{link}</a>
