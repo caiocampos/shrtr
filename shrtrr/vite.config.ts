@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import sass from 'sass';
 import { resolve } from 'path';
 import { dependencies } from './package.json';
 
@@ -30,7 +29,6 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			scss: {
-				implementation: sass,
 				api: 'modern-compiler'
 			}
 		}
