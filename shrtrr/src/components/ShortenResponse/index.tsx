@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import Constants from '../../constants';
 
 interface IShortenResponse {
@@ -5,7 +6,7 @@ interface IShortenResponse {
 	error?: string | Error;
 }
 
-const ShortenResponse = ({ error, route }: IShortenResponse): React.JSX.Element => {
+const ShortenResponse = ({ error, route }: IShortenResponse): JSX.Element => {
 	if (error) {
 		return (
 			<span>
@@ -35,9 +36,9 @@ export class ShortenResponseObject {
 		this.route = route;
 	}
 
-	generate = (): React.JSX.Element => ShortenResponseObject.build(this.route, this.error);
+	generate = (): JSX.Element => ShortenResponseObject.build(this.route, this.error);
 
-	static build(route: string | null, error?: string | Error): React.JSX.Element {
+	static build(route: string | null, error?: string | Error): JSX.Element {
 		return <ShortenResponse error={error} route={route} />;
 	}
 }

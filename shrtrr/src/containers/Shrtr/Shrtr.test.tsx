@@ -1,5 +1,5 @@
 import { act } from 'react';
-import { Simulate } from 'react-dom/test-utils';
+import { fireEvent } from '@testing-library/react';
 import Shrtr from './index';
 import { createRoot } from 'react-dom/client';
 
@@ -30,7 +30,7 @@ it('renders Shrtr and submit without link', () => {
 	const form = container?.querySelector('form');
 	if (form) {
 		act(() => {
-			Simulate.submit(form);
+			fireEvent.submit(form);
 		});
 	}
 });
@@ -46,14 +46,14 @@ it('renders Shrtr and submit with link and shrt', () => {
 		if (linkInput && shrtInput) {
 			act(() => {
 				linkInput.value = 'test.com';
-				Simulate.change(linkInput);
+				fireEvent.change(linkInput);
 				shrtInput.value = 'test';
-				Simulate.change(shrtInput);
+				fireEvent.change(shrtInput);
 			});
 			expect(linkInput.value).toBe('test.com');
 			expect(shrtInput.value).toBe('test');
 			act(() => {
-				Simulate.submit(form);
+				fireEvent.submit(form);
 			});
 		}
 	}

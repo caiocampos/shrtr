@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
+import { ComponentType, JSX, lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { errorRoute } from '@/util';
 import ToServer from './ToServer';
 
 const loading = <div>Loading...</div>;
 
-const lazyLoad = (importFunction: () => Promise<{ default: React.ComponentType }>) => {
-	const Lazy = React.lazy(importFunction);
+const lazyLoad = (importFunction: () => Promise<{ default: ComponentType }>) => {
+	const Lazy = lazy(importFunction);
 	return () => (
 		<Suspense fallback={loading}>
 			<Lazy />
@@ -40,15 +40,5 @@ const router = createBrowserRouter(
 );
 
 const AppRoutes = (): JSX.Element => <RouterProvider router={router} />;
-
-/*
-const AppRoutes = () => (
-	<Routes>
-		<Route index element={<Main />} />
-		<Route path={errorRoute} element={<E404 />} />
-		<Route path="/:id" element={<ToServer />} />
-		<Route path="*" element={<E404 />} />
-	</Routes>
-);*/
 
 export default AppRoutes;

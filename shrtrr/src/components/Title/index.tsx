@@ -1,13 +1,13 @@
-import React from 'react';
+import { JSX, memo, ReactNode } from 'react';
 import classes from './Title.module.scss';
 
 interface TitleProps {
 	className?: string;
 	title?: string;
-	children?: React.ReactNode;
+	children?: ReactNode;
 }
 
-const Title = ({ className, title, children }: TitleProps): React.JSX.Element => (
+const Title = ({ className, title, children }: TitleProps): JSX.Element => (
 	<div className={classes.Title}>
 		<span className={className}>
 			<h1>{title}</h1>
@@ -16,4 +16,4 @@ const Title = ({ className, title, children }: TitleProps): React.JSX.Element =>
 	</div>
 );
 
-export default React.memo(Title);
+export default memo(Title);

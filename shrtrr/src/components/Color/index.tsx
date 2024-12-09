@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import classes from './Color.module.scss';
 
 const maxColorNum = 0xffffff;
@@ -17,4 +17,4 @@ const Color = () => {
 	return <input className={classes.Color} type="button" value="New Color 🎨" onClick={newColor} />;
 };
 
-export default React.memo(Color);
+export default memo(Color);

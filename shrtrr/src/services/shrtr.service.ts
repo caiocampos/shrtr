@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import Constants from '../constants';
 import { ShortenResponseObject } from '../components/ShortenResponse';
 
@@ -48,7 +49,7 @@ export const promiseError = (error: Promise<Error | string> | Error | string): P
 	return promise.then((e) => Promise.resolve(e instanceof Error ? e.message : e));
 };
 
-export const unwrapShortenResponse = (route: string | null, error?: string | Error): React.JSX.Element =>
+export const unwrapShortenResponse = (route: string | null, error?: string | Error): JSX.Element =>
 	ShortenResponseObject.build(route, error);
 
 export default ShrtrService;

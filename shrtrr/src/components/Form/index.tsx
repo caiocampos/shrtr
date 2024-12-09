@@ -1,18 +1,18 @@
-import React from 'react';
+import { FormEventHandler, JSX, memo, ReactNode } from 'react';
 import classes from './Form.module.scss';
 import TextInputList from './TextInputList';
 import { TextInputProps } from '../TextInput';
 
 interface FormProps {
 	className?: string;
-	submited?: React.FormEventHandler<HTMLFormElement>;
-	children?: React.ReactNode;
+	submited?: FormEventHandler<HTMLFormElement>;
+	children?: ReactNode;
 	textInputList?: TextInputProps[];
 	submitText?: string | number | string[];
 	locked?: boolean;
 }
 
-const Form = ({ className, submited, children, textInputList, submitText, locked }: FormProps): React.JSX.Element => (
+const Form = ({ className, submited, children, textInputList, submitText, locked }: FormProps): JSX.Element => (
 	<div className={classes.Form}>
 		<span className={className}>
 			<form onSubmit={submited}>
@@ -24,4 +24,4 @@ const Form = ({ className, submited, children, textInputList, submitText, locked
 	</div>
 );
 
-export default React.memo(Form);
+export default memo(Form);

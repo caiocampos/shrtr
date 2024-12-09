@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 import Wrapper from '@/components/Wrapper';
 import { baseRoute } from '@/util';
 
-const Error404 = (): React.JSX.Element => {
+const Error404 = (): JSX.Element => {
 	const [counter, setCounter] = useState(5);
 	useEffect(() => {
 		if (counter) {
@@ -18,6 +18,6 @@ const Error404 = (): React.JSX.Element => {
 			{!counter ? <Navigate to={baseRoute} /> : null}
 		</Wrapper>
 	);
-}
+};
 
 export default Error404;

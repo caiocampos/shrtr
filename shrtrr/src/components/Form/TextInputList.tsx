@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import TextInput, { TextInputProps } from '../TextInput';
 
 interface TextInputListProps {
@@ -21,4 +21,4 @@ const renderInput = ({ className, name, value, changed, placeholder, required, f
 
 const TextInputList = ({ inputs }: TextInputListProps) => (!(inputs instanceof Array) ? null : inputs.map(renderInput));
 
-export default React.memo(TextInputList);
+export default memo(TextInputList);

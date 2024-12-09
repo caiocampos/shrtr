@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { ChangeEvent, FormEvent, JSX, PureComponent, ReactNode } from 'react';
 import Wrapper from '@/components/Wrapper';
 import Status from '@/components/Status';
 import Title from '@/components/Title';
@@ -12,9 +12,9 @@ const waitingCalculations = 'Waiting for server calculations...';
 interface ShrtrState {
 	link: string;
 	shrt: string;
-	response: React.ReactNode;
+	response: ReactNode;
 	loading: boolean;
-	countResponse: React.ReactNode;
+	countResponse: ReactNode;
 }
 
 class Shrtr extends PureComponent {
@@ -26,7 +26,7 @@ class Shrtr extends PureComponent {
 		countResponse: waitingCalculations
 	};
 
-	getStatus = (): React.ReactNode => (this.state.loading ? 'Loading...' : this.state.response);
+	getStatus = (): ReactNode => (this.state.loading ? 'Loading...' : this.state.response);
 
 	getTextInputList = (): TextInputProps[] => [
 		{
@@ -47,9 +47,9 @@ class Shrtr extends PureComponent {
 
 	setLoading = (loading = true): void => this.setState({ loading });
 
-	setCountResponse = (countResponse: React.ReactNode): void => this.setState({ countResponse });
+	setCountResponse = (countResponse: ReactNode): void => this.setState({ countResponse });
 
-	setResponse = (response: React.ReactNode = defaultMessage): void => this.setState({ response });
+	setResponse = (response: ReactNode = defaultMessage): void => this.setState({ response });
 
 	callCount = (): Promise<void> =>
 		Service.count()
@@ -59,7 +59,7 @@ class Shrtr extends PureComponent {
 				this.setCountResponse('An error has occurred!');
 			});
 
-	handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		event.preventDefault();
 		const { name, type, checked, value } = event.target;
 		this.setState({
@@ -67,7 +67,7 @@ class Shrtr extends PureComponent {
 		});
 	};
 
-	shorten = (event: React.FormEvent<HTMLFormElement>): void => {
+	shorten = (event: FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
 		const { link, shrt } = this.state;
 		if (!link) {
@@ -87,7 +87,7 @@ class Shrtr extends PureComponent {
 		this.callCount();
 	}
 
-	render(): React.JSX.Element {
+	render(): JSX.Element {
 		return (
 			<Wrapper>
 				<Title title="Shrtr">The independent shortener</Title>
