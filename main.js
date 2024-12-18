@@ -170,15 +170,16 @@ let LinksController = class LinksController {
         return this.linksService.findAll();
     }
     async find(response, shrt) {
-        const redirectToError = () => response.redirect(`${process.env.SHRTR_HOME}?error`);
+        const redirectToError = () => response.status(302).redirect(`${process.env.SHRTR_HOME}?error`);
         try {
             const data = await this.linksService.findOneByShrt(shrt);
             if (data.link !== undefined) {
                 let { link } = data;
                 link = /https?:\/\//.test(link) ? link : `http://${link}`;
-                response.redirect(link);
+                response.status(302).redirect(link);
                 return;
             }
+            console.error('Not found');
             redirectToError();
             return;
         }
