@@ -23,7 +23,7 @@ class ShrtrService {
 			method: 'POST',
 			body: JSON.stringify({
 				link: link,
-				shrt: shrt
+				shrt: shrt.length === 0 ? undefined : shrt
 			}),
 			headers: headers
 		});
