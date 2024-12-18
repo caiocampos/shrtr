@@ -161,7 +161,7 @@ exports.LinksController = void 0;
 const common_1 = __webpack_require__(1);
 const links_service_1 = __webpack_require__(10);
 const link_add_request_dto_1 = __webpack_require__(14);
-const express_1 = __webpack_require__(17);
+const http_interfaces_1 = __webpack_require__(17);
 let LinksController = class LinksController {
     constructor(linksService) {
         this.linksService = linksService;
@@ -206,7 +206,7 @@ __decorate([
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Param)('shrt')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _c : Object, String]),
+    __metadata("design:paramtypes", [typeof (_c = typeof http_interfaces_1.ApiResponse !== "undefined" && http_interfaces_1.ApiResponse) === "function" ? _c : Object, String]),
     __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], LinksController.prototype, "find", null);
 __decorate([
@@ -433,9 +433,11 @@ exports.ValidationMessages = Object.freeze({
 
 /***/ }),
 /* 17 */
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-module.exports = require("express");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
 
 /***/ })
 /******/ 	]);
