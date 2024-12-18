@@ -217,6 +217,7 @@ __decorate([
 ], LinksController.prototype, "count", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.HttpCode)(201),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof link_add_request_dto_1.default !== "undefined" && link_add_request_dto_1.default) === "function" ? _f : Object]),
