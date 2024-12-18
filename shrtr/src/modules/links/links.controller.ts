@@ -2,7 +2,7 @@ import { Controller, Post, Get, Body, Res, Param } from '@nestjs/common';
 import { LinksService } from './links.service';
 import LinkResponseDTO from './dto/link-response.dto';
 import LinkAddRequestDTO from './dto/link-add-request.dto';
-import { Response } from 'express';
+import { ApiResponse } from '../../common/interfaces/http-interfaces';
 
 @Controller('links')
 export class LinksController {
@@ -15,7 +15,7 @@ export class LinksController {
 
   @Get('@/:shrt')
   async find(
-    @Res() response: Response,
+    @Res() response: ApiResponse,
     @Param('shrt') shrt: string,
   ): Promise<void> {
     const redirectToError = () =>
