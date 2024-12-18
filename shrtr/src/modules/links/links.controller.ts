@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Res, Param } from '@nestjs/common';
+import { Controller, Post, Get, Body, Res, Param, HttpCode } from '@nestjs/common';
 import { LinksService } from './links.service';
 import LinkResponseDTO from './dto/link-response.dto';
 import LinkAddRequestDTO from './dto/link-add-request.dto';
@@ -42,6 +42,7 @@ export class LinksController {
   }
 
   @Post()
+  @HttpCode(201)
   add(@Body() requestDto: LinkAddRequestDTO): Promise<LinkResponseDTO> {
     return this.linksService.generate(requestDto);
   }
