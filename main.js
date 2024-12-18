@@ -330,7 +330,7 @@ let LinksService = LinksService_1 = class LinksService {
             return this.generate(Object.assign(Object.assign({}, requestDto), { shrt }), true);
         };
         try {
-            if (requestDto.shrt !== undefined) {
+            if (requestDto.shrt !== undefined && requestDto.shrt.length > 0) {
                 const exists = await this.existsByShrt(requestDto.shrt);
                 if (exists) {
                     if (recursion) {
