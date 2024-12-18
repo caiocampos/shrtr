@@ -19,7 +19,7 @@ class ShrtrService {
 	};
 
 	static shorten = (link: string, shrt: string) => {
-		const request = new Request(`${Constants.server}/`, {
+		const request = new Request(Constants.server, {
 			method: 'POST',
 			body: JSON.stringify({
 				link: link,
