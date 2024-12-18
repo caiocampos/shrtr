@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Body, Res, Param, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Res,
+  Param,
+  HttpCode,
+} from '@nestjs/common';
 import { LinksService } from './links.service';
 import LinkResponseDTO from './dto/link-response.dto';
 import LinkAddRequestDTO from './dto/link-add-request.dto';
@@ -19,15 +27,16 @@ export class LinksController {
     @Param('shrt') shrt: string,
   ): Promise<void> {
     const redirectToError = () =>
-      response.redirect(`${process.env.SHRTR_HOME}?error`);
+      response.status(302).redirect(`${process.env.SHRTR_HOME}?error`);
     try {
       const data = await this.linksService.findOneByShrt(shrt);
       if (data.link !== undefined) {
         let { link } = data;
         link = /https?:\/\//.test(link) ? link : `http://${link}`;
-        response.redirect(link);
+        response.status(302).redirect(link);
         return;
       }
+      console.error('Not found');
       redirectToError();
       return;
     } catch (err) {
