@@ -57,7 +57,7 @@ export class LinksService {
 
   async exists(query: RootFilterQuery<LinkDocument>): Promise<boolean> {
     try {
-      return (await this.linkModel.exists(query))._id !== undefined;
+      return (await this.linkModel.exists(query))?._id !== undefined;
     } catch (error) {
       const message = 'Error validating existence of the link';
       this.logger.error(message, error);
