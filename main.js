@@ -302,8 +302,9 @@ let LinksService = LinksService_1 = class LinksService {
         return await this.exists({ shrt });
     }
     async exists(query) {
+        var _a;
         try {
-            return (await this.linkModel.exists(query))._id !== undefined;
+            return ((_a = (await this.linkModel.exists(query))) === null || _a === void 0 ? void 0 : _a._id) !== undefined;
         }
         catch (error) {
             const message = 'Error validating existence of the link';
