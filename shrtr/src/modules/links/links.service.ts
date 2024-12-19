@@ -93,7 +93,7 @@ export class LinksService {
     requestDto: LinkAddRequestDTO,
     recursion = false,
   ): Promise<LinkResponseDTO> {
-    const regenerate = () => {
+    const regenerate = (): Promise<LinkResponseDTO> => {
       const shrt = (Math.random() * 9007199254740991)
         .toString(36)
         .replace('.', 'A');
@@ -114,6 +114,7 @@ export class LinksService {
         }
         return this.add(requestDto);
       }
+      return regenerate();
     } catch (error) {
       const message = 'Error recording the link';
       this.logger.error(message, error);
