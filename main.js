@@ -428,6 +428,10 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: validation_messages_constants_1.ValidationMessages.IS_NOT_EMPTY }),
     __metadata("design:type", String)
 ], LinkAddRequestDTO.prototype, "link", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], LinkAddRequestDTO.prototype, "shrt", void 0);
 
 
 /***/ }),
