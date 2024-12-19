@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { ReactNode } from 'react';
 import Constants from '../constants';
 import { ShortenResponseObject } from '../components/ShortenResponse';
 
@@ -18,7 +18,7 @@ class ShrtrService {
 		return fetch_retry(request, 10).then(parseResponse);
 	};
 
-	static shorten = (link: string, shrt: string) => {
+	static shorten = (link: string, shrt: string): Promise<ReactNode> => {
 		const request = new Request(Constants.server, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -29,8 +29,12 @@ class ShrtrService {
 		});
 		return fetch(request)
 			.then(parseResponse<{ shrt: string }>)
-			.then((data) => (!data ? Promise.reject(emptyErr) : Promise.resolve(unwrapShortenResponse(data.shrt))))
-			.catch((error) => promiseError(error).then((err) => Promise.resolve(unwrapShortenResponse(null, err))));
+			.then((data) =>
+				!data
+					? Promise.resolve(unwrapShortenResponse(null, emptyErr))
+					: Promise.resolve(unwrapShortenResponse(data.shrt))
+			)
+			.catch((error) => Promise.resolve(unwrapShortenResponse(null, error as string | Error)));
 	};
 }
 
@@ -41,15 +45,16 @@ const fetch_retry = (request: Request, n: number, delay?: number): Promise<Respo
 
 export const wait = (delay: number): Promise<unknown> => new Promise((resolve) => setTimeout(resolve, delay));
 
-export const parseResponse = <T>(res: Response): Promise<T> =>
-	!res.ok ? Promise.reject(res.json()) : (res.json() as Promise<T>);
-
-export const promiseError = (error: Promise<Error | string> | Error | string): Promise<Error | string> => {
-	const promise = error instanceof Promise ? error : Promise.resolve(error);
-	return promise.then((e) => Promise.resolve(e instanceof Error ? e.message : e));
+export const parseResponse = async <T>(res: Response): Promise<T> => {
+	try {
+		const json = await res.json();
+		return res.ok ? Promise.resolve(json as T) : Promise.reject(json);
+	} catch {
+		return Promise.reject('Invalid JSON');
+	}
 };
 
-export const unwrapShortenResponse = (route: string | null, error?: string | Error): JSX.Element =>
+export const unwrapShortenResponse = (route: string | null, error?: string | Error): ReactNode =>
 	ShortenResponseObject.build(route, error);
 
 export default ShrtrService;

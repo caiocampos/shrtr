@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { JSX, ReactNode } from 'react';
 import Constants from '../../constants';
 
 interface IShortenResponse {
@@ -8,6 +8,7 @@ interface IShortenResponse {
 
 const ShortenResponse = ({ error, route }: IShortenResponse): JSX.Element => {
 	if (error) {
+		console.error(error);
 		return (
 			<span>
 				Error trying to generate link.
@@ -36,9 +37,9 @@ export class ShortenResponseObject {
 		this.route = route;
 	}
 
-	generate = (): JSX.Element => ShortenResponseObject.build(this.route, this.error);
+	generate = (): ReactNode => ShortenResponseObject.build(this.route, this.error);
 
-	static build(route: string | null, error?: string | Error): JSX.Element {
+	static build(route: string | null, error?: string | Error): ReactNode {
 		return <ShortenResponse error={error} route={route} />;
 	}
 }
