@@ -6,6 +6,8 @@ import {
   Res,
   Param,
   Logger,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import LinkResponseDTO from './dto/link-response.dto';
@@ -48,12 +50,23 @@ export class LinksController {
   }
 
   @Get('count')
-  count(): Promise<number> {
-    return this.linksService.count();
+  async count(): Promise<number> {
+    try {
+      return await this.linksService.count();
+    } catch (err) {
+      this.logger.error(err);
+      throw new HttpException((err as Error).message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Post()
-  add(@Body() requestDto: LinkAddRequestDTO): Promise<LinkResponseDTO> {
-    return this.linksService.generate(requestDto);
+  async add(@Body() requestDto: LinkAddRequestDTO): Promise<LinkResponseDTO> {
+    try {
+      const result = await this.linksService.generate(requestDto);
+      return result;
+    } catch (err) {
+      this.logger.error(err);
+      throw new HttpException((err as Error).message, HttpStatus.BAD_REQUEST);
+    }
   }
 }
