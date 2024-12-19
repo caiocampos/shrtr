@@ -190,11 +190,24 @@ let LinksController = LinksController_1 = class LinksController {
             redirectToError();
         }
     }
-    count() {
-        return this.linksService.count();
+    async count() {
+        try {
+            return await this.linksService.count();
+        }
+        catch (err) {
+            this.logger.error(err);
+            throw new common_1.HttpException(err.message, common_1.HttpStatus.BAD_REQUEST);
+        }
     }
-    add(requestDto) {
-        return this.linksService.generate(requestDto);
+    async add(requestDto) {
+        try {
+            const result = await this.linksService.generate(requestDto);
+            return result;
+        }
+        catch (err) {
+            this.logger.error(err);
+            throw new common_1.HttpException(err.message, common_1.HttpStatus.BAD_REQUEST);
+        }
     }
 };
 exports.LinksController = LinksController;
