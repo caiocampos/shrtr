@@ -21,8 +21,13 @@ export class LinksController {
   constructor(private linksService: LinksService) {}
 
   @Get()
-  findAll(): Promise<Array<LinkResponseDTO>> {
-    return this.linksService.findAll();
+  async findAll(): Promise<Array<LinkResponseDTO>> {
+    try {
+      return await this.linksService.findAll();
+    } catch (err) {
+      this.logger.error(err);
+      throw new HttpException((err as Error).message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get('@/:shrt')
