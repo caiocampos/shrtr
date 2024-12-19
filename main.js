@@ -375,6 +375,7 @@ let LinksService = LinksService_1 = class LinksService {
                 }
                 return this.add(requestDto);
             }
+            return regenerate();
         }
         catch (error) {
             const message = 'Error recording the link';
