@@ -22,7 +22,9 @@ export class LinksService {
       const link = await this.linkModel.findOne({ shrt }).exec();
       return LinkResponseDTO.from(link);
     } catch (error) {
-      throw new HttpException('Error finding the link', HttpStatus.BAD_REQUEST);
+      const message = 'Error finding the link by alias';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -32,7 +34,9 @@ export class LinksService {
       const link = await this.linkModel.findById(_id).exec();
       return LinkResponseDTO.from(link);
     } catch (error) {
-      throw new HttpException('Error finding the link', HttpStatus.BAD_REQUEST);
+      const message = 'Error finding the link';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -41,7 +45,9 @@ export class LinksService {
       const links = await this.linkModel.find().exec();
       return links.map(LinkResponseDTO.from);
     } catch (error) {
-      throw new HttpException('Error finding links', HttpStatus.BAD_REQUEST);
+      const message = 'Error finding links';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -53,10 +59,9 @@ export class LinksService {
     try {
       return (await this.linkModel.exists(query))._id !== undefined;
     } catch (error) {
-      throw new HttpException(
-        'Error validating existence of the link',
-        HttpStatus.BAD_REQUEST,
-      );
+      const message = 'Error validating existence of the link';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -64,7 +69,9 @@ export class LinksService {
     try {
       return await this.linkModel.countDocuments().exec();
     } catch (error) {
-      throw new HttpException('Error counting links', HttpStatus.BAD_REQUEST);
+      const message = 'Error counting links';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -76,10 +83,9 @@ export class LinksService {
       const link = await newLink.save();
       return LinkResponseDTO.from(link);
     } catch (error) {
-      throw new HttpException(
-        'Error recording the link',
-        HttpStatus.BAD_REQUEST,
-      );
+      const message = 'Error adding the link';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -100,20 +106,18 @@ export class LinksService {
           if (recursion) {
             return regenerate();
           }
+          const message = 'The alias already exists, please try another';
+          this.logger.error(message);
           return Promise.reject(
-            new HttpException(
-              'The alias already exists, please try another',
-              HttpStatus.BAD_REQUEST,
-            ),
+            new HttpException(message, HttpStatus.BAD_REQUEST),
           );
         }
         return this.add(requestDto);
       }
     } catch (error) {
-      throw new HttpException(
-        'Error recording the link',
-        HttpStatus.BAD_REQUEST,
-      );
+      const message = 'Error recording the link';
+      this.logger.error(message, error);
+      throw new HttpException(message, HttpStatus.BAD_REQUEST);
     }
   }
 }

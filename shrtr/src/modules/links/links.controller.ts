@@ -5,7 +5,7 @@ import {
   Body,
   Res,
   Param,
-  HttpCode,
+  Logger,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import LinkResponseDTO from './dto/link-response.dto';
@@ -14,6 +14,8 @@ import { ApiResponse } from '../../common/interfaces/http-interfaces';
 
 @Controller('links')
 export class LinksController {
+  private readonly logger = new Logger(LinksController.name);
+
   constructor(private linksService: LinksService) {}
 
   @Get()
@@ -36,11 +38,11 @@ export class LinksController {
         response.status(302).redirect(link);
         return;
       }
-      console.error('Not found');
+      this.logger.error('Not found');
       redirectToError();
       return;
     } catch (err) {
-      console.error(err);
+      this.logger.error(err);
       redirectToError();
     }
   }
@@ -51,7 +53,6 @@ export class LinksController {
   }
 
   @Post()
-  @HttpCode(201)
   add(@Body() requestDto: LinkAddRequestDTO): Promise<LinkResponseDTO> {
     return this.linksService.generate(requestDto);
   }
