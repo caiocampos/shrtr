@@ -168,8 +168,14 @@ let LinksController = LinksController_1 = class LinksController {
         this.linksService = linksService;
         this.logger = new common_1.Logger(LinksController_1.name);
     }
-    findAll() {
-        return this.linksService.findAll();
+    async findAll() {
+        try {
+            return await this.linksService.findAll();
+        }
+        catch (err) {
+            this.logger.error(err);
+            throw new common_1.HttpException(err.message, common_1.HttpStatus.BAD_REQUEST);
+        }
     }
     async find(response, shrt) {
         const redirectToError = () => response.status(302).redirect(`${process.env.SHRTR_HOME}?error`);
