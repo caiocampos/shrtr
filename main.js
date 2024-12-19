@@ -155,6 +155,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var LinksController_1;
 var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LinksController = void 0;
@@ -162,9 +163,10 @@ const common_1 = __webpack_require__(1);
 const links_service_1 = __webpack_require__(10);
 const link_add_request_dto_1 = __webpack_require__(14);
 const http_interfaces_1 = __webpack_require__(17);
-let LinksController = class LinksController {
+let LinksController = LinksController_1 = class LinksController {
     constructor(linksService) {
         this.linksService = linksService;
+        this.logger = new common_1.Logger(LinksController_1.name);
     }
     findAll() {
         return this.linksService.findAll();
@@ -179,12 +181,12 @@ let LinksController = class LinksController {
                 response.status(302).redirect(link);
                 return;
             }
-            console.error('Not found');
+            this.logger.error('Not found');
             redirectToError();
             return;
         }
         catch (err) {
-            console.error(err);
+            this.logger.error(err);
             redirectToError();
         }
     }
@@ -218,13 +220,12 @@ __decorate([
 ], LinksController.prototype, "count", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.HttpCode)(201),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof link_add_request_dto_1.default !== "undefined" && link_add_request_dto_1.default) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], LinksController.prototype, "add", null);
-exports.LinksController = LinksController = __decorate([
+exports.LinksController = LinksController = LinksController_1 = __decorate([
     (0, common_1.Controller)('links'),
     __metadata("design:paramtypes", [typeof (_a = typeof links_service_1.LinksService !== "undefined" && links_service_1.LinksService) === "function" ? _a : Object])
 ], LinksController);
@@ -269,7 +270,9 @@ let LinksService = LinksService_1 = class LinksService {
             return link_response_dto_1.default.from(link);
         }
         catch (error) {
-            throw new common_1.HttpException('Error finding the link', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error finding the link by alias';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async findOne(id) {
@@ -279,7 +282,9 @@ let LinksService = LinksService_1 = class LinksService {
             return link_response_dto_1.default.from(link);
         }
         catch (error) {
-            throw new common_1.HttpException('Error finding the link', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error finding the link';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async findAll() {
@@ -288,7 +293,9 @@ let LinksService = LinksService_1 = class LinksService {
             return links.map(link_response_dto_1.default.from);
         }
         catch (error) {
-            throw new common_1.HttpException('Error finding links', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error finding links';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async existsByShrt(shrt) {
@@ -299,7 +306,9 @@ let LinksService = LinksService_1 = class LinksService {
             return (await this.linkModel.exists(query))._id !== undefined;
         }
         catch (error) {
-            throw new common_1.HttpException('Error validating existence of the link', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error validating existence of the link';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async count() {
@@ -307,7 +316,9 @@ let LinksService = LinksService_1 = class LinksService {
             return await this.linkModel.countDocuments().exec();
         }
         catch (error) {
-            throw new common_1.HttpException('Error counting links', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error counting links';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async add(requestDto) {
@@ -319,7 +330,9 @@ let LinksService = LinksService_1 = class LinksService {
             return link_response_dto_1.default.from(link);
         }
         catch (error) {
-            throw new common_1.HttpException('Error recording the link', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error adding the link';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async generate(requestDto, recursion = false) {
@@ -336,13 +349,17 @@ let LinksService = LinksService_1 = class LinksService {
                     if (recursion) {
                         return regenerate();
                     }
-                    return Promise.reject(new common_1.HttpException('The alias already exists, please try another', common_1.HttpStatus.BAD_REQUEST));
+                    const message = 'The alias already exists, please try another';
+                    this.logger.error(message);
+                    return Promise.reject(new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST));
                 }
                 return this.add(requestDto);
             }
         }
         catch (error) {
-            throw new common_1.HttpException('Error recording the link', common_1.HttpStatus.BAD_REQUEST);
+            const message = 'Error recording the link';
+            this.logger.error(message, error);
+            throw new common_1.HttpException(message, common_1.HttpStatus.BAD_REQUEST);
         }
     }
 };
