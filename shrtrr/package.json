@@ -18,7 +18,7 @@
 		"react-router-dom": "^7.5"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.25",
+		"@eslint/js": "^9.26",
 		"@testing-library/dom": "^10.4",
 		"@testing-library/react": "^16.3",
 		"@types/jest": "^29.5",
