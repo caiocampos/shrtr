@@ -1,1 +1,0 @@
-import{j as r}from"./index-BZCIAVWk.js";const a="_Wrapper_1eg4z_1",e={Wrapper:a},t=({className:s,children:p})=>r.jsx("div",{className:e.Wrapper,children:r.jsx("span",{className:s,children:p})});export{t as W};
