@@ -155,13 +155,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var LinksController_1;
 var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LinksController = void 0;
 const common_1 = __webpack_require__(1);
 const links_service_1 = __webpack_require__(10);
-const link_add_request_dto_1 = __webpack_require__(14);
+const link_add_request_dto_1 = __importDefault(__webpack_require__(14));
 const http_interfaces_1 = __webpack_require__(17);
 let LinksController = LinksController_1 = class LinksController {
     constructor(linksService) {
@@ -267,6 +270,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var LinksService_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
@@ -275,7 +281,7 @@ const common_1 = __webpack_require__(1);
 const mongoose_1 = __webpack_require__(6);
 const mongoose_2 = __webpack_require__(11);
 const link_entity_1 = __webpack_require__(8);
-const link_response_dto_1 = __webpack_require__(12);
+const link_response_dto_1 = __importDefault(__webpack_require__(12));
 const mongoose_connection_1 = __webpack_require__(13);
 const { ObjectId } = mongoose_2.Types;
 let LinksService = LinksService_1 = class LinksService {
