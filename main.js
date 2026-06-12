@@ -56,10 +56,9 @@ exports.moduleList = void 0;
 const mongoose_1 = __webpack_require__(6);
 const links_module_1 = __webpack_require__(7);
 const mongoose_connection_1 = __webpack_require__(13);
+const utils_1 = __webpack_require__(18);
 exports.moduleList = [
-    mongoose_1.MongooseModule.forRoot((_a = process.env.MONGO_URI_SHRTR) !== null && _a !== void 0 ? _a : process.env.MONGO_URI, {
-        connectionName: mongoose_connection_1.connectionName,
-    }),
+    mongoose_1.MongooseModule.forRoot((0, utils_1.forceString)((_a = process.env.MONGO_URI_SHRTR) !== null && _a !== void 0 ? _a : process.env.MONGO_URI), { connectionName: mongoose_connection_1.connectionName }),
     links_module_1.LinksModule,
 ];
 
@@ -122,6 +121,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LinkSchema = exports.Link = void 0;
 const mongoose_1 = __webpack_require__(6);
 let Link = class Link {
+    constructor(shrt, link) {
+        this.shrt = shrt;
+        this.link = link;
+    }
 };
 exports.Link = Link;
 __decorate([
@@ -133,7 +136,8 @@ __decorate([
     __metadata("design:type", String)
 ], Link.prototype, "link", void 0);
 exports.Link = Link = __decorate([
-    (0, mongoose_1.Schema)({ collection: 'link' })
+    (0, mongoose_1.Schema)({ collection: 'link' }),
+    __metadata("design:paramtypes", [String, String])
 ], Link);
 exports.LinkSchema = mongoose_1.SchemaFactory.createForClass(Link);
 
@@ -184,7 +188,7 @@ let LinksController = LinksController_1 = class LinksController {
         const redirectToError = () => response.status(302).redirect(`${process.env.SHRTR_HOME}?error`);
         try {
             const data = await this.linksService.findOneByShrt(shrt);
-            if (data.link !== undefined) {
+            if ((data === null || data === void 0 ? void 0 : data.link) !== undefined) {
                 let { link } = data;
                 link = /https?:\/\//.test(link) ? link : `http://${link}`;
                 response.status(302).redirect(link);
@@ -292,6 +296,9 @@ let LinksService = LinksService_1 = class LinksService {
     async findOneByShrt(shrt) {
         try {
             const link = await this.linkModel.findOne({ shrt }).exec();
+            if (link === null) {
+                return null;
+            }
             return link_response_dto_1.default.from(link);
         }
         catch (error) {
@@ -304,6 +311,9 @@ let LinksService = LinksService_1 = class LinksService {
         try {
             const _id = new ObjectId(id);
             const link = await this.linkModel.findById(_id).exec();
+            if (link === null) {
+                return null;
+            }
             return link_response_dto_1.default.from(link);
         }
         catch (error) {
@@ -348,10 +358,11 @@ let LinksService = LinksService_1 = class LinksService {
         }
     }
     async add(requestDto) {
+        var _a;
         try {
             const newLink = new this.linkModel();
             newLink.link = requestDto.link;
-            newLink.shrt = requestDto.shrt;
+            newLink.shrt = (_a = requestDto.shrt) !== null && _a !== void 0 ? _a : "";
             const link = await newLink.save();
             return link_response_dto_1.default.from(link);
         }
@@ -449,6 +460,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const class_validator_1 = __webpack_require__(15);
 const validation_messages_constants_1 = __webpack_require__(16);
 class LinkAddRequestDTO {
+    constructor(link, shrt) {
+        this.shrt = shrt;
+        this.link = link;
+    }
 }
 exports["default"] = LinkAddRequestDTO;
 __decorate([
@@ -487,6 +502,19 @@ exports.ValidationMessages = Object.freeze({
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 18 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.forceString = exports.forceNumber = void 0;
+const forceNumber = (num) => Number(num) || 0;
+exports.forceNumber = forceNumber;
+const forceString = (str) => String(str) || '';
+exports.forceString = forceString;
 
 
 /***/ })
