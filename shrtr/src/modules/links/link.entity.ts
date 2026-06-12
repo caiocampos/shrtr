@@ -10,6 +10,11 @@ export class Link {
 
   @Prop({ required: true, type: String })
   link: string;
+
+  public constructor(shrt: string, link: string) {
+    this.shrt = shrt;
+    this.link = link;
+  }
 }
 
 export const LinkSchema = SchemaFactory.createForClass(Link);

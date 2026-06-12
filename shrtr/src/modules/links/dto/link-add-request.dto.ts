@@ -7,4 +7,9 @@ export default class LinkAddRequestDTO {
 
   @IsOptional()
   shrt?: string;
+
+  public constructor(link: string, shrt?: string) {
+    this.shrt = shrt;
+    this.link = link;
+  }
 }

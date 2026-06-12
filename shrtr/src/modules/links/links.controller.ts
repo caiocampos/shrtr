@@ -39,7 +39,7 @@ export class LinksController {
       response.status(302).redirect(`${process.env.SHRTR_HOME}?error`);
     try {
       const data = await this.linksService.findOneByShrt(shrt);
-      if (data.link !== undefined) {
+      if (data?.link !== undefined) {
         let { link } = data;
         link = /https?:\/\//.test(link) ? link : `http://${link}`;
         response.status(302).redirect(link);

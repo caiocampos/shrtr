@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, RootFilterQuery, Types } from 'mongoose';
+import { Model, QueryFilter, Types } from 'mongoose';
 import { Link, LinkDocument } from './link.entity';
 import LinkResponseDTO from './dto/link-response.dto';
 import LinkAddRequestDTO from './dto/link-add-request.dto';
@@ -17,9 +17,12 @@ export class LinksService {
     private linkModel: Model<LinkDocument>,
   ) {}
 
-  async findOneByShrt(shrt: string): Promise<LinkResponseDTO> {
+  async findOneByShrt(shrt: string): Promise<LinkResponseDTO | null> {
     try {
       const link = await this.linkModel.findOne({ shrt }).exec();
+      if (link === null) {
+        return null;
+      }
       return LinkResponseDTO.from(link);
     } catch (error) {
       const message = 'Error finding the link by alias';
@@ -28,10 +31,13 @@ export class LinksService {
     }
   }
 
-  async findOne(id: string): Promise<LinkResponseDTO> {
+  async findOne(id: string): Promise<LinkResponseDTO | null> {
     try {
       const _id = new ObjectId(id);
       const link = await this.linkModel.findById(_id).exec();
+      if (link === null) {
+        return null;
+      }
       return LinkResponseDTO.from(link);
     } catch (error) {
       const message = 'Error finding the link';
@@ -55,7 +61,7 @@ export class LinksService {
     return await this.exists({ shrt });
   }
 
-  async exists(query: RootFilterQuery<LinkDocument>): Promise<boolean> {
+  async exists(query: QueryFilter<LinkDocument>): Promise<boolean> {
     try {
       return (await this.linkModel.exists(query))?._id !== undefined;
     } catch (error) {
@@ -79,7 +85,7 @@ export class LinksService {
     try {
       const newLink = new this.linkModel();
       newLink.link = requestDto.link;
-      newLink.shrt = requestDto.shrt;
+      newLink.shrt = requestDto.shrt ?? "";
       const link = await newLink.save();
       return LinkResponseDTO.from(link);
     } catch (error) {
