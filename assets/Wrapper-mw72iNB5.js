@@ -1,1 +1,0 @@
-import{t as e}from"./react-BSd5bZJk.js";var t={Wrapper:`_Wrapper_1eg4z_1`},n=e(),r=({className:e,children:r})=>(0,n.jsx)(`div`,{className:t.Wrapper,children:(0,n.jsx)(`span`,{className:e,children:r})});export{r as t};
