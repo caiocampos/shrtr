@@ -1,15 +1,12 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ValidationMessages } from '../../../common/messages/validation-messages.constants';
 
-export default class LinkAddRequestDTO {
+export class LinkAddRequestDTO {
+  @IsString()
   @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
-  link: string;
+  link!: string;
 
+  @IsString()
   @IsOptional()
   shrt?: string;
-
-  public constructor(link: string, shrt?: string) {
-    this.shrt = shrt;
-    this.link = link;
-  }
 }

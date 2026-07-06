@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, QueryFilter, Types } from 'mongoose';
 import { Link, LinkDocument } from './link.entity';
-import LinkResponseDTO from './dto/link-response.dto';
-import LinkAddRequestDTO from './dto/link-add-request.dto';
+import { LinkResponseDTO } from './dto/link-response.dto';
+import { LinkAddRequestDTO } from './dto/link-add-request.dto';
 import { connectionName } from '../../mongoose-connection';
 
 const { ObjectId } = Types;
@@ -85,7 +85,7 @@ export class LinksService {
     try {
       const newLink = new this.linkModel();
       newLink.link = requestDto.link;
-      newLink.shrt = requestDto.shrt ?? "";
+      newLink.shrt = requestDto.shrt ?? '';
       const link = await newLink.save();
       return LinkResponseDTO.from(link);
     } catch (error) {

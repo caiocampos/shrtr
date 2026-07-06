@@ -1,6 +1,6 @@
 import { LinkDocument } from '../link.entity';
 
-export default class LinkResponseDTO {
+export class LinkResponseDTO {
   constructor(
     public id: string,
     public link: string,
