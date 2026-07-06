@@ -274,9 +274,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var LinksService_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
@@ -285,7 +282,7 @@ const common_1 = __webpack_require__(1);
 const mongoose_1 = __webpack_require__(6);
 const mongoose_2 = __webpack_require__(11);
 const link_entity_1 = __webpack_require__(8);
-const link_response_dto_1 = __importDefault(__webpack_require__(12));
+const link_response_dto_1 = __webpack_require__(12);
 const mongoose_connection_1 = __webpack_require__(13);
 const { ObjectId } = mongoose_2.Types;
 let LinksService = LinksService_1 = class LinksService {
@@ -299,7 +296,7 @@ let LinksService = LinksService_1 = class LinksService {
             if (link === null) {
                 return null;
             }
-            return link_response_dto_1.default.from(link);
+            return link_response_dto_1.LinkResponseDTO.from(link);
         }
         catch (error) {
             const message = 'Error finding the link by alias';
@@ -314,7 +311,7 @@ let LinksService = LinksService_1 = class LinksService {
             if (link === null) {
                 return null;
             }
-            return link_response_dto_1.default.from(link);
+            return link_response_dto_1.LinkResponseDTO.from(link);
         }
         catch (error) {
             const message = 'Error finding the link';
@@ -325,7 +322,7 @@ let LinksService = LinksService_1 = class LinksService {
     async findAll() {
         try {
             const links = await this.linkModel.find().exec();
-            return links.map(link_response_dto_1.default.from);
+            return links.map(link_response_dto_1.LinkResponseDTO.from);
         }
         catch (error) {
             const message = 'Error finding links';
@@ -362,9 +359,9 @@ let LinksService = LinksService_1 = class LinksService {
         try {
             const newLink = new this.linkModel();
             newLink.link = requestDto.link;
-            newLink.shrt = (_a = requestDto.shrt) !== null && _a !== void 0 ? _a : "";
+            newLink.shrt = (_a = requestDto.shrt) !== null && _a !== void 0 ? _a : '';
             const link = await newLink.save();
-            return link_response_dto_1.default.from(link);
+            return link_response_dto_1.LinkResponseDTO.from(link);
         }
         catch (error) {
             const message = 'Error adding the link';
@@ -421,6 +418,7 @@ module.exports = require("mongoose");
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LinkResponseDTO = void 0;
 class LinkResponseDTO {
     constructor(id, link, shrt) {
         this.id = id;
@@ -428,8 +426,8 @@ class LinkResponseDTO {
         this.shrt = shrt;
     }
 }
+exports.LinkResponseDTO = LinkResponseDTO;
 LinkResponseDTO.from = ({ _id, link, shrt }) => new LinkResponseDTO(_id.toHexString(), link, shrt);
-exports["default"] = LinkResponseDTO;
 
 
 /***/ }),
@@ -457,20 +455,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LinkAddRequestDTO = void 0;
 const class_validator_1 = __webpack_require__(15);
 const validation_messages_constants_1 = __webpack_require__(16);
 class LinkAddRequestDTO {
-    constructor(link, shrt) {
-        this.shrt = shrt;
-        this.link = link;
-    }
 }
-exports["default"] = LinkAddRequestDTO;
+exports.LinkAddRequestDTO = LinkAddRequestDTO;
 __decorate([
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: validation_messages_constants_1.ValidationMessages.IS_NOT_EMPTY }),
     __metadata("design:type", String)
 ], LinkAddRequestDTO.prototype, "link", void 0);
 __decorate([
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LinkAddRequestDTO.prototype, "shrt", void 0);
@@ -557,7 +554,7 @@ const app_module_1 = __webpack_require__(3);
 const bootstrap = async () => {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors();
-    app.useGlobalPipes(new common_1.ValidationPipe());
+    app.useGlobalPipes(new common_1.ValidationPipe({ transform: true }));
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
