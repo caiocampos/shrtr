@@ -159,16 +159,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var LinksController_1;
 var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LinksController = void 0;
 const common_1 = __webpack_require__(1);
 const links_service_1 = __webpack_require__(10);
-const link_add_request_dto_1 = __importDefault(__webpack_require__(14));
+const link_add_request_dto_1 = __webpack_require__(14);
 const http_interfaces_1 = __webpack_require__(17);
 let LinksController = LinksController_1 = class LinksController {
     constructor(linksService) {
@@ -248,7 +245,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof link_add_request_dto_1.default !== "undefined" && link_add_request_dto_1.default) === "function" ? _f : Object]),
+    __metadata("design:paramtypes", [typeof (_f = typeof link_add_request_dto_1.LinkAddRequestDTO !== "undefined" && link_add_request_dto_1.LinkAddRequestDTO) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], LinksController.prototype, "add", null);
 exports.LinksController = LinksController = LinksController_1 = __decorate([
