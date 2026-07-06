@@ -10,8 +10,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
-import LinkResponseDTO from './dto/link-response.dto';
-import LinkAddRequestDTO from './dto/link-add-request.dto';
+import { LinkResponseDTO } from './dto/link-response.dto';
+import { LinkAddRequestDTO } from './dto/link-add-request.dto';
 import { ApiResponse } from '../../common/interfaces/http-interfaces';
 
 @Controller('links')
