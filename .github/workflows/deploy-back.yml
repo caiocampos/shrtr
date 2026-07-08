@@ -24,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: 'shrtr/yarn.lock'
     - name: Install
       working-directory: ./shrtr
       run: yarn install
