@@ -35,6 +35,6 @@
 		"typescript-eslint": "^8.65",
 		"sass": "^1.102",
 		"sass-loader": "^17.0",
-		"vite": "^8.1"
+		"vite": "^8.2"
 	}
 }
