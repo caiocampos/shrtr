@@ -14,7 +14,7 @@
 	},
 	"dependencies": {
 		"react": "^19.3",
-		"react-dom": "^19.2",
+		"react-dom": "^19.3",
 		"react-router-dom": "^7.18"
 	},
 	"devDependencies": {
@@ -24,7 +24,7 @@
 		"@types/jest": "^30.0",
 		"@types/node": "^26.5",
 		"@types/react": "^19.3",
-		"@types/react-dom": "^19.2",
+		"@types/react-dom": "^19.3",
 		"@vitejs/plugin-react": "^6.1",
 		"eslint": "^10.10",
 		"eslint-plugin-react-hooks": "^7.1",
