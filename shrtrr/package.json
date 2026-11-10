@@ -33,7 +33,7 @@
 		"prettier": "^3.9",
 		"typescript": "^6.0",
 		"typescript-eslint": "^8.72",
-		"sass": "^1.107",
+		"sass": "^1.108",
 		"sass-loader": "^17.1",
 		"vite": "^8.3"
 	}
