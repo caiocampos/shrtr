@@ -32,7 +32,7 @@
 		"globals": "^17.14",
 		"prettier": "^3.10",
 		"typescript": "^6.0",
-		"typescript-eslint": "^8.73",
+		"typescript-eslint": "^8.74",
 		"sass": "^1.108",
 		"sass-loader": "^17.1",
 		"vite": "^8.3"
